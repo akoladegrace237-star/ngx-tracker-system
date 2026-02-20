@@ -1,10 +1,10 @@
-﻿"""
+"""
 generate_html.py
 Fetches NGX equities data and writes a self-contained index.html
 suitable for GitHub Pages hosting.
 
 Usage:
-    python generate_html.py          # fetch live data â†’ docs/index.html
+    python generate_html.py          # fetch live data → index.html
     python generate_html.py --cached # use latest saved snapshot (no browser)
 """
 
@@ -33,17 +33,20 @@ logger = logging.getLogger(__name__)
 DOCS_DIR = Path(".")
 OUTPUT = DOCS_DIR / "index.html"
 
-# â”€â”€ My Portfolio â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-# Add or remove tickers/company names here to personalise your watchlist.
-PORTFOLIO_STOCKS = [
-    "AFRIPRUD",       # African Prudential
-    "UNIVINSURE",     # Universal Insurance
-    "CUTIX",          # Cutix (Cables)
-    "SOVRENINS",      # Sovereign Trust Insurance [MRF]
-]
+# ── My Portfolio ────────────────────────────────────────────────────────────
+# Edit qty, buy_price, and stop_loss_pct for each stock you own.
+# stop_loss_pct = how many % below your buy price triggers a SELL alert
+PORTFOLIO_CONFIG = {
+    "AFRIPRUD":  {"qty": 13200,  "buy_price": 15.00, "stop_loss_pct": 10},
+    "UNIVINSURE":{"qty": 542000, "buy_price": 1.10,  "stop_loss_pct": 8 },
+    "CUTIX":     {"qty": 185000, "buy_price": 2.60,  "stop_loss_pct": 10},
+    "SOVRENINS": {"qty": 200000, "buy_price": 1.00,  "stop_loss_pct": 12},
+}
+
+PORTFOLIO_STOCKS = list(PORTFOLIO_CONFIG.keys())
 
 
-# â”€â”€ Data helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# ── Data helpers ─────────────────────────────────────────────────────────────
 
 def to_records(df: pd.DataFrame) -> list:
     return json.loads(df.to_json(orient="records"))
@@ -63,13 +66,21 @@ def find_portfolio_stocks(df: pd.DataFrame, names: list) -> tuple:
     return matched_df, missing
 
 
+def _get_config_for(company: str) -> dict:
+    """Find the PORTFOLIO_CONFIG entry that matches a company name (partial, case-insensitive)."""
+    for key, cfg in PORTFOLIO_CONFIG.items():
+        if company.upper().startswith(key.upper()):
+            return cfg
+    return {}
+
+
 def load_data(use_cache: bool) -> pd.DataFrame:
     if use_cache:
         snaps = load_snapshots(last_n=1)
         if snaps:
             logger.info("Using cached snapshot.")
             return snaps[-1]
-        logger.warning("No cached snapshot found â€” fetching live data.")
+        logger.warning("No cached snapshot found — fetching live data.")
 
     from scraper import get_equities_data
     df = get_equities_data()
@@ -78,7 +89,7 @@ def load_data(use_cache: bool) -> pd.DataFrame:
     return df
 
 
-# â”€â”€ HTML template â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# ── HTML template ─────────────────────────────────────────────────────────────
 
 HTML_TEMPLATE = """<!DOCTYPE html>
 <html lang="en">
@@ -105,7 +116,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
     padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom, 0px));
   }}
 
-  /* â”€â”€ Sticky header â”€â”€ */
+  /* ── Sticky header ── */
   .top-bar{{
     position:fixed; top:0; left:0; right:0; z-index:100;
     height:var(--header-h);
@@ -123,7 +134,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
     padding:4px 10px; font-size:.68rem; white-space:nowrap; flex-shrink:0;
   }}
 
-  /* â”€â”€ Bottom nav â”€â”€ */
+  /* ── Bottom nav ── */
   .bottom-nav{{
     position:fixed; bottom:0; left:0; right:0; z-index:100;
     height:var(--nav-h);
@@ -142,10 +153,10 @@ HTML_TEMPLATE = """<!DOCTYPE html>
   .bottom-nav a:active{{color:var(--green); background:var(--green-light);}}
   .bottom-nav a span.icon{{font-size:1.25rem; line-height:1;}}
 
-  /* â”€â”€ Layout â”€â”€ */
+  /* ── Layout ── */
   .container{{max-width:1100px; margin:0 auto; padding:12px 12px 0;}}
 
-  /* â”€â”€ Section title â”€â”€ */
+  /* ── Section title ── */
   .section-title{{
     font-size:1rem; font-weight:700; color:var(--text);
     margin:20px 0 10px; padding:10px 12px;
@@ -154,7 +165,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
     box-shadow:var(--shadow);
   }}
 
-  /* â”€â”€ KPI row â”€â”€ */
+  /* ── KPI row ── */
   .kpi-grid{{display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:4px;}}
   @media(min-width:600px){{.kpi-grid{{grid-template-columns:repeat(6,1fr);}}}}
   .kpi{{
@@ -182,11 +193,11 @@ HTML_TEMPLATE = """<!DOCTYPE html>
   .kpi[data-tip]:hover::after,
   .kpi[data-tip].tip-open::after{{opacity:1;}}
 
-  /* â”€â”€ Two-column grid â”€â”€ */
+  /* ── Two-column grid ── */
   .two-col{{display:grid; grid-template-columns:1fr; gap:12px;}}
   @media(min-width:768px){{.two-col{{grid-template-columns:1fr 1fr;}}}}
 
-  /* â”€â”€ Card â”€â”€ */
+  /* ── Card ── */
   .card{{background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden;}}
   .card-header{{
     padding:12px 14px; font-weight:700; font-size:.9rem;
@@ -197,7 +208,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
   .card-body{{padding:10px 12px;}}
   canvas{{max-height:200px; width:100% !important;}}
 
-  /* â”€â”€ Scrollable table wrapper â”€â”€ */
+  /* ── Scrollable table wrapper ── */
   .table-wrap{{overflow-x:auto; -webkit-overflow-scrolling:touch; margin-top:10px;}}
   table{{width:100%; border-collapse:collapse; font-size:.8rem; min-width:300px;}}
   th{{
@@ -214,7 +225,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
   .dn {{color:var(--red);   font-weight:700;}}
   .neu{{color:var(--muted);}}
 
-  /* â”€â”€ Hide less important table cols on small screens â”€â”€ */
+  /* ── Hide less important table cols on small screens ── */
   @media(max-width:480px){{
     .hide-mobile{{display:none;}}
   }}
@@ -224,7 +235,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
   .card-header .arrow{{margin-left:auto; font-size:.85rem; transition:transform .25s; display:inline-block;}}
   .card-body.collapsed{{display:none;}}
 
-  /* â”€â”€ Portfolio cards â”€â”€ */
+  /* ── Portfolio cards ── */
   .port-grid{{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:8px;}}
   @media(min-width:540px){{.port-grid{{grid-template-columns:repeat(3,1fr);}}}}
   @media(min-width:900px){{.port-grid{{grid-template-columns:repeat(4,1fr);}}}}
@@ -241,14 +252,26 @@ HTML_TEMPLATE = """<!DOCTYPE html>
     display:inline-block; margin-top:8px; padding:5px 12px;
     border-radius:20px; font-size:.72rem; font-weight:700; color:#fff;
   }}
-  .port-signal.sell   {{background:#c0392b;}}
+  .port-signal.sell    {{background:#c0392b;}}
   .port-signal.consider{{background:#e67e22;}}
-  .port-signal.watch  {{background:#f39c12; color:#333;}}
-  .port-signal.hold   {{background:#7f8c8d;}}
-  .port-signal.keep   {{background:#1a6b3c;}}
+  .port-signal.watch   {{background:#f39c12; color:#333;}}
+  .port-signal.hold    {{background:#7f8c8d;}}
+  .port-signal.keep    {{background:#1a6b3c;}}
   .port-reason{{font-size:.65rem; color:var(--muted); margin-top:5px; line-height:1.4; font-style:italic;}}
 
-  /* â”€â”€ Rec cards â”€â”€ */
+  /* ── Stop-loss alert banner ── */
+  .stop-loss-alert{{
+    background:#fdf2f2; border:1px solid #c0392b; border-radius:8px;
+    padding:6px 10px; margin-top:8px; font-size:.68rem;
+    color:#c0392b; font-weight:700;
+  }}
+  .stop-loss-warn{{
+    background:#fef9ec; border:1px solid #f39c12; border-radius:8px;
+    padding:6px 10px; margin-top:8px; font-size:.68rem;
+    color:#e67e22; font-weight:700;
+  }}
+
+  /* ── Rec cards ── */
   .rec-grid{{display:grid; grid-template-columns:1fr 1fr; gap:10px;}}
   @media(min-width:600px){{.rec-grid{{grid-template-columns:repeat(3,1fr);}}}}
   @media(min-width:900px){{.rec-grid{{grid-template-columns:repeat(5,1fr);}}}}
@@ -271,14 +294,14 @@ HTML_TEMPLATE = """<!DOCTYPE html>
   }}
   .signal.watch{{background:var(--gold); color:#333;}}
 
-  /* â”€â”€ Score guide â”€â”€ */
+  /* ── Score guide ── */
   .score-guide{{
     font-size:.72rem; color:var(--muted); margin-top:12px;
     background:var(--card); border-radius:var(--radius);
     padding:10px 14px; box-shadow:var(--shadow); line-height:1.8;
   }}
 
-  /* â”€â”€ Footer â”€â”€ */
+  /* ── Footer ── */
   footer{{
     text-align:center; color:var(--muted); font-size:.72rem;
     margin-top:24px; padding:16px;
@@ -293,7 +316,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
   <img src="https://ngxgroup.com/wp-content/uploads/2019/11/Nigerian-Exchange-Group-Logo-1.png" alt="NGX"/>
   <div class="top-bar-text">
     <h1>NGX Equities Tracker</h1>
-    <p>Nigerian Exchange â€” Live Intelligence</p>
+    <p>Nigerian Exchange — Live Intelligence</p>
   </div>
   <div class="top-bar-badge">&#128336; {updated}</div>
 </div>
@@ -399,14 +422,14 @@ function toggleCard(bodyId, arrowId) {{
   arrow.style.transform = isNowCollapsed ? 'rotate(-90deg)' : 'rotate(0deg)';
 }}
 
-const GAINERS    = {gainers_json};
-const LOSERS     = {losers_json};
-const RECS       = {recs_json};
-const PORTFOLIO  = {portfolio_json};
-const PORT_MISS    = {missing_json};
+const GAINERS     = {gainers_json};
+const LOSERS      = {losers_json};
+const RECS        = {recs_json};
+const PORTFOLIO   = {portfolio_json};
+const PORT_MISS   = {missing_json};
 const PORT_SIGNALS = {signals_json};
 
-// â”€â”€ Gainers table & chart â”€â”€
+// ── Gainers table & chart ──
 const gainBody = document.getElementById('gainBody');
 GAINERS.forEach((r,i) => {{
   gainBody.innerHTML += `<tr>
@@ -422,11 +445,7 @@ new Chart(document.getElementById('gainChart'), {{
   type:'bar',
   data:{{
     labels: GAINERS.map(r=>r.Company),
-    datasets:[{{
-      data: GAINERS.map(r=>r.Pct_Change),
-      backgroundColor:'rgba(26,107,60,0.75)',
-      borderRadius:5,
-    }}]
+    datasets:[{{ data: GAINERS.map(r=>r.Pct_Change), backgroundColor:'rgba(26,107,60,0.75)', borderRadius:5 }}]
   }},
   options:{{
     plugins:{{legend:{{display:false}}}},
@@ -434,12 +453,11 @@ new Chart(document.getElementById('gainChart'), {{
       y:{{title:{{display:true,text:'% Change'}},ticks:{{font:{{size:10}}}}}},
       x:{{ticks:{{maxRotation:45,font:{{size:9}}}}}}
     }},
-    responsive:true,
-    maintainAspectRatio:true,
+    responsive:true, maintainAspectRatio:true,
   }}
 }});
 
-// â”€â”€ Losers table & chart â”€â”€
+// ── Losers table & chart ──
 const lossBody = document.getElementById('lossBody');
 LOSERS.forEach(r => {{
   lossBody.innerHTML += `<tr>
@@ -455,11 +473,7 @@ new Chart(document.getElementById('lossChart'), {{
   type:'bar',
   data:{{
     labels: LOSERS.map(r=>r.Company),
-    datasets:[{{
-      data: LOSERS.map(r=>r.Pct_Change),
-      backgroundColor:'rgba(192,57,43,0.75)',
-      borderRadius:5,
-    }}]
+    datasets:[{{ data: LOSERS.map(r=>r.Pct_Change), backgroundColor:'rgba(192,57,43,0.75)', borderRadius:5 }}]
   }},
   options:{{
     plugins:{{legend:{{display:false}}}},
@@ -467,12 +481,11 @@ new Chart(document.getElementById('lossChart'), {{
       y:{{title:{{display:true,text:'% Change'}},ticks:{{font:{{size:10}}}}}},
       x:{{ticks:{{maxRotation:45,font:{{size:9}}}}}}
     }},
-    responsive:true,
-    maintainAspectRatio:true,
+    responsive:true, maintainAspectRatio:true,
   }}
 }});
 
-// â”€â”€ My Portfolio cards â”€â”€
+// ── My Portfolio cards ──
 const portGrid = document.getElementById('portGrid');
 if (PORTFOLIO.length === 0 && PORT_MISS.length > 0) {{
   portGrid.innerHTML = "<p style='color:var(--muted);font-size:.85rem;'>No portfolio stocks found in today&apos;s data.</p>";
@@ -490,27 +503,43 @@ if (PORTFOLIO.length === 0 && PORT_MISS.length > 0) {{
                     : sigText === 'WATCH CLOSELY' ? 'watch'
                     : sigText === 'KEEP' ? 'keep' : 'hold';
     const sessions  = sig.sessions ? sig.sessions + ' sessions' : 'today only';
-    const netChg    = sig.net_change_pct != null ? (sig.net_change_pct >= 0 ? '+' : '') + sig.net_change_pct.toFixed(2) + '%' : '\u2014';
+    const netChg    = sig.net_change_pct != null
+                    ? (sig.net_change_pct >= 0 ? '+' : '') + sig.net_change_pct.toFixed(2) + '%'
+                    : '\u2014';
 
-    // -- P&L block (only shown when qty and buy_price are set) --
-    const qty      = r._qty || 0;
-    const buyPrice = r._buy_price || 0;
+    // ── P&L block ──
+    const qty       = r._qty       || 0;
+    const buyPrice  = r._buy_price  || 0;
+    const stopLossPct = r._stop_loss_pct || 10;
     let plHtml = '';
+    let stopHtml = '';
+
     if (qty > 0 && buyPrice > 0 && r.Close) {{
-      const cost    = qty * buyPrice;
-      const curVal  = qty * r.Close;
-      const pl      = curVal - cost;
-      const plPct   = (pl / cost * 100);
-      const plCls   = pl >= 0 ? 'up' : 'dn';
-      const plSign  = pl >= 0 ? '+' : '';
-      const fmt2    = (n) => n.toLocaleString(undefined, {{minimumFractionDigits:2, maximumFractionDigits:2}});
+      const cost   = qty * buyPrice;
+      const curVal = qty * r.Close;
+      const pl     = curVal - cost;
+      const plPct  = (pl / cost * 100);
+      const plCls  = pl >= 0 ? 'up' : 'dn';
+      const plSign = pl >= 0 ? '+' : '';
+      const fmt2   = (n) => n.toLocaleString(undefined, {{minimumFractionDigits:2, maximumFractionDigits:2}});
+
       plHtml = `
         <div class="port-row" style="border-top:1px solid #f0f0f0;margin-top:6px;padding-top:6px;">
           Shares: <b>${{qty.toLocaleString()}}</b>
         </div>
+        <div class="port-row">Buy price: <b>&#8358;${{buyPrice.toFixed(2)}}</b></div>
         <div class="port-row">Cost basis: <b>&#8358;${{fmt2(cost)}}</b></div>
         <div class="port-row">Market value: <b>&#8358;${{fmt2(curVal)}}</b></div>
         <div class="port-row ${{plCls}}">P&amp;L: <b>${{plSign}}&#8358;${{fmt2(Math.abs(pl))}} (${{plSign}}${{plPct.toFixed(1)}}%)</b></div>`;
+
+      // ── Stop-loss alert ──
+      const lossFromBuy = ((r.Close - buyPrice) / buyPrice) * 100;
+      const stopLossPrice = buyPrice * (1 - stopLossPct / 100);
+      if (lossFromBuy <= -stopLossPct) {{
+        stopHtml = `<div class="stop-loss-alert">&#128680; STOP-LOSS BREACHED! Down ${{Math.abs(lossFromBuy).toFixed(1)}}% from buy price. Consider selling.</div>`;
+      }} else if (lossFromBuy <= -(stopLossPct * 0.7)) {{
+        stopHtml = `<div class="stop-loss-warn">&#9888; Approaching stop-loss (${{stopLossPct}}%). Currently ${{lossFromBuy.toFixed(1)}}% from buy price. Stop at &#8358;${{stopLossPrice.toFixed(2)}}.</div>`;
+      }}
     }} else if (qty > 0) {{
       plHtml = `<div class="port-row" style="border-top:1px solid #f0f0f0;margin-top:6px;padding-top:6px;">Shares held: <b>${{qty.toLocaleString()}}</b></div>`;
     }}
@@ -524,6 +553,7 @@ if (PORTFOLIO.length === 0 && PORT_MISS.length > 0) {{
         <div class="port-row">Vol: <b>${{r.Volume ? r.Volume.toLocaleString() : '\u2014'}}</b></div>
         <div class="port-row">Trend (${{sessions}}): <b>${{netChg}}</b></div>
         ${{plHtml}}
+        ${{stopHtml}}
         <div><span class="port-signal ${{sigCls}}">${{sigText}}</span></div>
         <div class="port-reason">${{sigReason}}</div>
       </div>`;
@@ -537,20 +567,19 @@ if (PORTFOLIO.length === 0 && PORT_MISS.length > 0) {{
   }});
 }}
 
-// â”€â”€ Recommendation cards â”€â”€
+// ── Recommendation cards ──
 const recGrid = document.getElementById('recGrid');
 RECS.forEach(r => {{
   const signal   = r.Recommendation || 'WATCH';
   const isBuy    = signal.includes('BUY');
   const pct      = r.Pct_Change ?? 0;
   const mom      = r['momentum_%'] ?? pct;
-  const cons     = r.consistency != null ? (r.consistency*100).toFixed(0)+'%' : '\u2014';
   const score    = r.Score?.toFixed(1) ?? '\u2014';
   const vol      = r.Volume ? r.Volume.toLocaleString() : '\u2014';
   const sign     = pct >= 0 ? '+' : '';
   const priceClass = pct >= 0 ? '' : 'dn';
-  const watchClass = isBuy   ? '' : 'watch';
-  const sigClass   = isBuy   ? '' : 'watch';
+  const watchClass = isBuy ? '' : 'watch';
+  const sigClass   = isBuy ? '' : 'watch';
   recGrid.innerHTML += `
   <div class="rec-card ${{watchClass}}">
     <div class="rec-sym">${{r.Company}}</div>
@@ -562,6 +591,7 @@ RECS.forEach(r => {{
     <div><span class="signal ${{sigClass}}">${{signal}}</span></div>
   </div>`;
 }});
+
 // Tap a KPI to show its tooltip on mobile (auto-dismisses after 3s)
 document.querySelectorAll(".kpi[data-tip]").forEach(el => {{
   el.addEventListener("click", () => {{
@@ -575,7 +605,7 @@ document.querySelectorAll(".kpi[data-tip]").forEach(el => {{
 """
 
 
-# â”€â”€ Generator â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# ── Generator ─────────────────────────────────────────────────────────────────
 
 def generate(df: pd.DataFrame, snapshots: list, top_n: int = 10, rec_n: int = 5) -> None:
     now_str = datetime.now().strftime("%d %b %Y, %H:%M WAT")
@@ -585,7 +615,14 @@ def generate(df: pd.DataFrame, snapshots: list, top_n: int = 10, rec_n: int = 5)
     recs    = generate_recommendations(df, snapshots, top_n=rec_n)
     port_df, port_missing = find_portfolio_stocks(df, PORTFOLIO_STOCKS)
 
-    # Compute SELL/HOLD/KEEP signals for each matched portfolio stock
+    # ── Inject qty, buy_price, stop_loss_pct from PORTFOLIO_CONFIG ──
+    if not port_df.empty:
+        port_df = port_df.copy()
+        port_df["_qty"]           = port_df["Company"].apply(lambda c: _get_config_for(c).get("qty", 0))
+        port_df["_buy_price"]     = port_df["Company"].apply(lambda c: _get_config_for(c).get("buy_price", 0))
+        port_df["_stop_loss_pct"] = port_df["Company"].apply(lambda c: _get_config_for(c).get("stop_loss_pct", 10))
+
+    # ── Compute SELL/HOLD/KEEP signals ──
     port_signals = {}
     for _, row in port_df.iterrows():
         sig = score_portfolio_stock(row["Company"], row, snapshots)
@@ -604,29 +641,29 @@ def generate(df: pd.DataFrame, snapshots: list, top_n: int = 10, rec_n: int = 5)
     )
 
     html = HTML_TEMPLATE.format(
-        updated      = now_str,
-        total        = total,
-        advancing    = advancing,
-        declining    = declining,
-        unchanged    = unchanged,
-        avg_chg      = avg_str,
-        avg_color    = avg_color,
-        snapshots    = len(snapshots),
-        top_n        = top_n,
-        rec_note     = rec_note,
+        updated        = now_str,
+        total          = total,
+        advancing      = advancing,
+        declining      = declining,
+        unchanged      = unchanged,
+        avg_chg        = avg_str,
+        avg_color      = avg_color,
+        snapshots      = len(snapshots),
+        top_n          = top_n,
+        rec_note       = rec_note,
         gainers_json   = json.dumps(to_records(gainers),   ensure_ascii=False),
         losers_json    = json.dumps(to_records(losers),    ensure_ascii=False),
         recs_json      = json.dumps(to_records(recs),      ensure_ascii=False),
         portfolio_json = json.dumps(to_records(port_df) if not port_df.empty else [], ensure_ascii=False),
-        missing_json   = json.dumps(port_missing,                                      ensure_ascii=False),
-        signals_json   = json.dumps(port_signals,                                      ensure_ascii=False),
+        missing_json   = json.dumps(port_missing,          ensure_ascii=False),
+        signals_json   = json.dumps(port_signals,          ensure_ascii=False),
     )
 
     OUTPUT.write_text(html, encoding="utf-8")
     logger.info(f"HTML written to {OUTPUT.resolve()}")
 
 
-# â”€â”€ Entry point â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# ── Entry point ───────────────────────────────────────────────────────────────
 
 def main():
     parser = argparse.ArgumentParser()
@@ -643,8 +680,8 @@ def main():
 
     snapshots = load_snapshots(last_n=168)  # 7 days x 24 hrs
     generate(df, snapshots, top_n=args.top, rec_n=args.rec)
-    print(f"\nOK  docs/index.html generated -- {len(df)} stocks processed.")
-    print("   Push to GitHub and enable Pages -> branch: main, folder: /docs\n")
+    print(f"\nOK  index.html generated -- {len(df)} stocks processed.")
+    print("   Push to GitHub → Pages will auto-update.\n")
 
 
 if __name__ == "__main__":
