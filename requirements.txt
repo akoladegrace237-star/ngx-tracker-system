@@ -1,0 +1,6 @@
+playwright>=1.40.0
+pandas>=2.1.0
+numpy>=1.26.0
+schedule>=1.2.0
+streamlit>=1.30.0
+plotly>=5.18.0

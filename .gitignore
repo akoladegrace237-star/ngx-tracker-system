@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+*.egg-info/
+
+# Data (reports and logs are local only; history is kept for trend signals)
+data/reports/
+data/agent.log
+
+# Debug / temp
+debug_page.html
+
+# VS Code
+.vscode/
