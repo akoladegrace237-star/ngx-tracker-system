@@ -64,7 +64,7 @@ def get_top_losers(df: pd.DataFrame, n: int = 10) -> pd.DataFrame:
     return losers[["Company", "Prev_Close", "Close", "Change", "Pct_Change", "Volume", "Value"]].reset_index(drop=True)
 
 
-# -- Multi-period Trend Scoring -------------------------------------------------
+# -- Multi-period Trend Scoring ------------------------------------------------
 
 def build_price_history(snapshots: list[pd.DataFrame]) -> pd.DataFrame:
     """
@@ -95,14 +95,14 @@ def score_stock(row: pd.Series, n_snapshots: int) -> dict:
     Returns a dict with individual signal scores and total score.
     """
     close_cols = [c for c in row.index if c.startswith("close_")]
-    vol_cols = [c for c in row.index if c.startswith("vol_")]
-    pct_cols = [c for c in row.index if c.startswith("pct_")]
+    vol_cols   = [c for c in row.index if c.startswith("vol_")]
+    pct_cols   = [c for c in row.index if c.startswith("pct_")]
 
     closes = row[close_cols].dropna().values.astype(float)
-    vols = row[vol_cols].dropna().values.astype(float)
-    pcts = row[pct_cols].dropna().values.astype(float)
+    vols   = row[vol_cols].dropna().values.astype(float)
+    pcts   = row[pct_cols].dropna().values.astype(float)
 
-    score = 0.0
+    score   = 0.0
     signals = {}
 
     if len(closes) < 2:
@@ -119,27 +119,26 @@ def score_stock(row: pd.Series, n_snapshots: int) -> dict:
         consistency = positive_periods / len(pcts)
         signals["consistency"] = round(consistency, 2)
         score += consistency * 20
-    
+
     # 3. Volume trend: is volume rising alongside price?
     if len(vols) >= 2 and vols[0] != 0:
         vol_trend = (vols[-1] - vols[0]) / vols[0] * 100
         signals["volume_trend_%"] = round(vol_trend, 2)
-        # Reward rising volume only when price is also rising
         if net_change > 0 and vol_trend > 0:
             score += 10
         elif net_change < 0 and vol_trend > 0:
             score -= 5
-    
+
     # 4. Recent momentum (last 3 snapshots vs earlier)
     if len(closes) >= 4:
-        recent_avg = np.mean(closes[-3:])
+        recent_avg  = np.mean(closes[-3:])
         earlier_avg = np.mean(closes[:-3])
         if earlier_avg != 0:
             recent_momentum = (recent_avg - earlier_avg) / earlier_avg * 100
             signals["recent_momentum_%"] = round(recent_momentum, 2)
             score += recent_momentum * 0.3
 
-    # 5. Avoid declining streaks: penalise if last 3 pcts all negative
+    # 5. Penalise if last 3 pcts all negative
     if len(pcts) >= 3 and all(p < 0 for p in pcts[-3:]):
         score -= 15
         signals["consecutive_declines"] = 3
@@ -153,7 +152,6 @@ def generate_recommendations(current_df: pd.DataFrame, snapshots: list[pd.DataFr
     Analyse trend across all snapshots and rank stocks by buy-worthiness.
     Returns a DataFrame of recommended stocks with their scores and reasoning.
     """
-    # If fewer than 2 snapshots, fall back to single-session analysis
     if len(snapshots) < 2:
         logger.info("Insufficient history; using single-session signals only.")
         return _single_session_recommendations(current_df, top_n)
@@ -177,9 +175,8 @@ def generate_recommendations(current_df: pd.DataFrame, snapshots: list[pd.DataFr
 
     scored_df = pd.DataFrame(scored).sort_values("Score", ascending=False).head(top_n)
 
-    # Merge in current prices
     price_cols = current_df[["Company", "Close", "Pct_Change", "Volume"]].copy()
-    scored_df = scored_df.merge(price_cols, on="Company", how="left")
+    scored_df  = scored_df.merge(price_cols, on="Company", how="left")
 
     scored_df["Recommendation"] = scored_df["Score"].apply(_score_to_label)
     return scored_df.reset_index(drop=True)
@@ -190,7 +187,7 @@ def _single_session_recommendations(df: pd.DataFrame, top_n: int = 5) -> pd.Data
     candidates = df[(df["Pct_Change"] > 0) & (df["Volume"] > 0)].copy()
     candidates["Score"] = candidates["Pct_Change"] * np.log1p(candidates["Volume"])
     candidates = candidates.sort_values("Score", ascending=False).head(top_n)
-    candidates["momentum_%"] = candidates["Pct_Change"]
+    candidates["momentum_%"]    = candidates["Pct_Change"]
     candidates["Recommendation"] = "WATCH / BUY (single-session)"
     return candidates[["Company", "Close", "Pct_Change", "Volume", "Score", "Recommendation"]].reset_index(drop=True)
 
@@ -206,39 +203,105 @@ def _score_to_label(score: float) -> str:
         return "HOLD"
 
 
-def score_portfolio_stock(company: str, current_row: pd.Series, snapshots: list) -> dict:
+def score_portfolio_stock(
+    company: str,
+    current_row: pd.Series,
+    snapshots: list,
+    buy_price: float = 0,       # ← NEW: your actual purchase price per share
+    stop_loss_pct: float = 10,  # ← NEW: % below buy price that triggers SELL
+) -> dict:
     """
     Assess whether a portfolio stock should be sold, held, or kept.
     Returns dict with signal, reason, and supporting stats.
-    Signals: SELL | CONSIDER SELLING | WATCH CLOSELY | HOLD | KEEP
-    """
-    if len(snapshots) < 2:
-        pct = float(current_row.get("Pct_Change", 0))
-        signal = "WATCH CLOSELY" if pct < -3 else "HOLD"
-        return {"signal": signal, "reason": "Insufficient history — check back tomorrow",
-                "net_change_pct": pct, "recent_avg_pct": pct,
-                "consec_down": 1 if pct < 0 else 0, "sessions": 1,
-                "week_change_pct": pct, "three_day_change_pct": pct}
 
+    Signals (highest → lowest priority):
+        SELL | CONSIDER SELLING | WATCH CLOSELY | HOLD | KEEP
+
+    Stop-loss logic (checked FIRST, overrides everything else):
+        - If current price has fallen >= stop_loss_pct% below buy_price → SELL
+        - If current price is within 70% of that threshold             → WATCH CLOSELY
+    """
+    current_price = float(current_row.get("Close", 0))
+
+    # ── PRIORITY 1: Stop-loss check (overrides all trend signals) ──────────────
+    if buy_price > 0 and current_price > 0:
+        loss_from_buy   = (current_price - buy_price) / buy_price * 100
+        stop_loss_price = buy_price * (1 - stop_loss_pct / 100)
+        warn_threshold  = -(stop_loss_pct * 0.7)   # e.g. -7% when stop is -10%
+
+        if loss_from_buy <= -stop_loss_pct:
+            return {
+                "signal":             "SELL",
+                "reason":             (
+                    f"🚨 STOP-LOSS BREACHED: Down {abs(loss_from_buy):.1f}% from your "
+                    f"buy price of \u20a6{buy_price:.2f}. "
+                    f"Stop-loss level was \u20a6{stop_loss_price:.2f}."
+                ),
+                "net_change_pct":     round(loss_from_buy, 2),
+                "recent_avg_pct":     round(loss_from_buy, 2),
+                "consec_down":        0,
+                "sessions":           1,
+                "week_change_pct":    round(loss_from_buy, 2),
+                "three_day_change_pct": round(loss_from_buy, 2),
+            }
+
+        elif loss_from_buy <= warn_threshold:
+            return {
+                "signal":             "WATCH CLOSELY",
+                "reason":             (
+                    f"⚠️ Approaching stop-loss ({stop_loss_pct}%): Down "
+                    f"{abs(loss_from_buy):.1f}% from buy price \u20a6{buy_price:.2f}. "
+                    f"Stop-loss triggers at \u20a6{stop_loss_price:.2f}."
+                ),
+                "net_change_pct":     round(loss_from_buy, 2),
+                "recent_avg_pct":     round(loss_from_buy, 2),
+                "consec_down":        0,
+                "sessions":           1,
+                "week_change_pct":    round(loss_from_buy, 2),
+                "three_day_change_pct": round(loss_from_buy, 2),
+            }
+
+    # ── PRIORITY 2: Insufficient history fallback ───────────────────────────────
+    if len(snapshots) < 2:
+        pct    = float(current_row.get("Pct_Change", 0))
+        signal = "WATCH CLOSELY" if pct < -3 else "HOLD"
+        return {
+            "signal":             signal,
+            "reason":             "Insufficient history — check back tomorrow",
+            "net_change_pct":     pct,
+            "recent_avg_pct":     pct,
+            "consec_down":        1 if pct < 0 else 0,
+            "sessions":           1,
+            "week_change_pct":    pct,
+            "three_day_change_pct": pct,
+        }
+
+    # ── PRIORITY 3: Multi-session trend analysis ────────────────────────────────
     closes, pcts = [], []
     for snap in snapshots:
-        mask = snap["Company"].str.upper().str.startswith(company.upper().split(" ")[0])
+        mask  = snap["Company"].str.upper().str.startswith(company.upper().split(" ")[0])
         match = snap[mask]
         if not match.empty:
             closes.append(float(match.iloc[0]["Close"]))
             pcts.append(float(match.iloc[0]["Pct_Change"]))
 
     if len(closes) < 2:
-        return {"signal": "HOLD", "reason": "Not enough historical data yet",
-                "net_change_pct": 0, "recent_avg_pct": 0,
-                "consec_down": 0, "sessions": 0,
-                "week_change_pct": 0, "three_day_change_pct": 0}
+        return {
+            "signal":             "HOLD",
+            "reason":             "Not enough historical data yet",
+            "net_change_pct":     0,
+            "recent_avg_pct":     0,
+            "consec_down":        0,
+            "sessions":           0,
+            "week_change_pct":    0,
+            "three_day_change_pct": 0,
+        }
 
-    sessions = len(closes)
+    sessions   = len(closes)
     net_change = (closes[-1] - closes[0]) / closes[0] * 100 if closes[0] != 0 else 0.0
 
     recent_pcts = pcts[-3:] if len(pcts) >= 3 else pcts
-    recent_avg = float(np.mean(recent_pcts))
+    recent_avg  = float(np.mean(recent_pcts))
 
     consec_down = 0
     for p in reversed(pcts):
@@ -247,12 +310,13 @@ def score_portfolio_stock(company: str, current_row: pd.Series, snapshots: list)
         else:
             break
 
-    week_closes = closes[-min(168, len(closes)):]
-    week_change = (week_closes[-1] - week_closes[0]) / week_closes[0] * 100 if week_closes[0] != 0 else 0.0
+    week_closes  = closes[-min(168, len(closes)):]
+    week_change  = (week_closes[-1] - week_closes[0]) / week_closes[0] * 100 if week_closes[0] != 0 else 0.0
 
     three_day_closes = closes[-min(72, len(closes)):]
     three_day_change = (three_day_closes[-1] - three_day_closes[0]) / three_day_closes[0] * 100 if three_day_closes[0] != 0 else 0.0
 
+    # ── Trend-based signal logic ────────────────────────────────────────────────
     if net_change <= -10 and consec_down >= 5:
         signal = "SELL"
         reason = f"Down {abs(net_change):.1f}% over {sessions} sessions with {consec_down} consecutive declines"
@@ -276,18 +340,18 @@ def score_portfolio_stock(company: str, current_row: pd.Series, snapshots: list)
         reason = f"Mixed signals over {sessions} sessions — no clear direction"
 
     return {
-        "signal": signal,
-        "reason": reason,
-        "net_change_pct": round(net_change, 2),
-        "recent_avg_pct": round(recent_avg, 2),
-        "consec_down": consec_down,
-        "sessions": sessions,
-        "week_change_pct": round(week_change, 2),
+        "signal":               signal,
+        "reason":               reason,
+        "net_change_pct":       round(net_change, 2),
+        "recent_avg_pct":       round(recent_avg, 2),
+        "consec_down":          consec_down,
+        "sessions":             sessions,
+        "week_change_pct":      round(week_change, 2),
         "three_day_change_pct": round(three_day_change, 2),
     }
 
 
-# -- Quick test -----------------------------------------------------------------
+# -- Quick test ----------------------------------------------------------------
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
     from scraper import get_equities_data
