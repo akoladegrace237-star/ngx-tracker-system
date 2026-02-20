@@ -613,6 +613,8 @@ def generate(df: pd.DataFrame, snapshots: list, top_n: int = 10, rec_n: int = 5)
     gainers = get_top_gainers(df, n=top_n)
     losers  = get_top_losers(df,  n=top_n)
     recs    = generate_recommendations(df, snapshots, top_n=rec_n)
+    
+     # find_portfolio_stocks always returns a DataFrame (may be empty) + list
     port_df, port_missing = find_portfolio_stocks(df, PORTFOLIO_STOCKS)
 
     # ── Inject qty, buy_price, stop_loss_pct from PORTFOLIO_CONFIG ──
@@ -693,4 +695,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
