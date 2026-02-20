@@ -2,8 +2,9 @@ name: Update NGX Tracker
 
 on:
   schedule:
-    - cron: "0 * * * *"   # every hour at :00
-  workflow_dispatch:        # allow manual trigger from GitHub UI
+    # Run every hour from 8 AM to 2 PM UTC (9 AM - 3 PM WAT) on weekdays only
+    - cron: "0 8-14 * * 1-5"  # Monday-Friday, 8 AM to 2 PM UTC (covers 9:30 AM - 2:30 PM WAT)
+  workflow_dispatch:  # Still allow manual trigger
 
 permissions:
   contents: write
