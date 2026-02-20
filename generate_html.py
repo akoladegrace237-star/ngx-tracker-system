@@ -623,10 +623,17 @@ def generate(df: pd.DataFrame, snapshots: list, top_n: int = 10, rec_n: int = 5)
         port_df["_stop_loss_pct"] = port_df["Company"].apply(lambda c: _get_config_for(c).get("stop_loss_pct", 10))
 
     # ── Compute SELL/HOLD/KEEP signals ──
-    port_signals = {}
-    for _, row in port_df.iterrows():
-        sig = score_portfolio_stock(row["Company"], row, snapshots)
-        port_signals[row["Company"]] = sig
+    # ── Compute SELL/HOLD/KEEP signals ──
+port_signals = {}
+for _, row in port_df.iterrows():
+    sig = score_portfolio_stock(              # ← FIXED: now passes buy_price & stop_loss_pct
+        row["Company"],
+        row,
+        snapshots,
+        buy_price     = float(row.get("_buy_price",     0)),
+        stop_loss_pct = float(row.get("_stop_loss_pct", 10)),
+    )
+    port_signals[row["Company"]] = sig
 
     total     = len(df)
     advancing = int((df["Pct_Change"] > 0).sum())
@@ -686,3 +693,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
