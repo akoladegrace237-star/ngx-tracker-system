@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 
 BASE_URL = "https://ngxgroup.com/exchange/data/equities-price-list/"
 
-# ── Helpers ───────────────────────────────────────────────────────────────────
+# -- Helpers -------------------------------------------------------------------
 
 def parse_change(change_str: str) -> float:
     """Parse change string like '▲0.62' or '▼1.50' into a signed float."""
@@ -40,7 +40,7 @@ def parse_number(value_str: str) -> float:
         return 0.0
 
 
-# ── Core scraper ──────────────────────────────────────────────────────────────
+# -- Core scraper --------------------------------------------------------------
 
 def _extract_all_rows(page) -> list[list[str]]:
     """
@@ -186,7 +186,7 @@ def get_equities_data(url: str = BASE_URL, timeout_ms: int = 60_000) -> pd.DataF
     return df
 
 
-# ── Quick sanity check ────────────────────────────────────────────────────────
+# -- Quick sanity check --------------------------------------------------------
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
     df = get_equities_data()

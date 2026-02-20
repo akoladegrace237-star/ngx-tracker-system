@@ -15,7 +15,7 @@ import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
 
-# ── make local modules importable ─────────────────────────────────────────────
+# -- make local modules importable ---------------------------------------------
 sys.path.insert(0, os.path.dirname(__file__))
 from scraper import get_equities_data
 from analyzer import (
@@ -26,7 +26,7 @@ from analyzer import (
     load_snapshots,
 )
 
-# ── Page config ───────────────────────────────────────────────────────────────
+# -- Page config ---------------------------------------------------------------
 st.set_page_config(
     page_title="NGX Equities Tracker",
     page_icon="📈",
@@ -34,7 +34,7 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# ── Custom CSS ────────────────────────────────────────────────────────────────
+# -- Custom CSS ----------------------------------------------------------------
 st.markdown("""
 <style>
     .main-title {
@@ -63,7 +63,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# ── Sidebar ───────────────────────────────────────────────────────────────────
+# -- Sidebar -------------------------------------------------------------------
 with st.sidebar:
     st.image("https://ngxgroup.com/wp-content/uploads/2019/11/Nigerian-Exchange-Group-Logo-1.png",
              width=200, use_container_width=False)
@@ -80,7 +80,7 @@ with st.sidebar:
     st.markdown("[NGX Equities Price List](https://ngxgroup.com/exchange/data/equities-price-list/)")
     st.caption("Prices delayed 30 min per NGX policy.")
 
-# ── Session state ─────────────────────────────────────────────────────────────
+# -- Session state -------------------------------------------------------------
 if "df" not in st.session_state:
     st.session_state.df = None
 if "last_fetch" not in st.session_state:
@@ -94,7 +94,7 @@ if "recs" not in st.session_state:
 if "snapshots" not in st.session_state:
     st.session_state.snapshots = []
 
-# ── Data fetching ─────────────────────────────────────────────────────────────
+# -- Data fetching -------------------------------------------------------------
 def do_fetch():
     with st.spinner("Fetching live data from NGX website... (this takes ~20s)"):
         df = get_equities_data()
@@ -102,7 +102,7 @@ def do_fetch():
         st.error("❌ Failed to fetch data. Check your internet connection and try again.")
         return
     save_snapshot(df)
-    snaps = load_snapshots(last_n=24)
+    snaps = load_snapshots(last_n=168)  # 7 days x 24 hrs
     gainers = get_top_gainers(df, n=top_n)
     losers  = get_top_losers(df,  n=top_n)
     recs    = generate_recommendations(df, snaps, top_n=rec_n)
@@ -130,7 +130,7 @@ if auto_refresh and st.session_state.last_fetch:
         do_fetch()
         st.rerun()
 
-# ── Main content ──────────────────────────────────────────────────────────────
+# -- Main content --------------------------------------------------------------
 df      = st.session_state.df
 gainers = st.session_state.gainers
 losers  = st.session_state.losers
@@ -148,7 +148,7 @@ if df is None or df.empty:
     st.info("No data yet. Click **Fetch Now** in the sidebar.")
     st.stop()
 
-# ── Market Overview KPIs ──────────────────────────────────────────────────────
+# -- Market Overview KPIs ------------------------------------------------------
 total     = len(df)
 advancing = int((df["Pct_Change"] > 0).sum())
 declining = int((df["Pct_Change"] < 0).sum())
@@ -166,7 +166,7 @@ c6.metric("Total Volume",   f"{total_vol/1e6:.1f}M")
 
 st.markdown("---")
 
-# ── Top Gainers & Losers ──────────────────────────────────────────────────────
+# -- Top Gainers & Losers ------------------------------------------------------
 col_g, col_l = st.columns(2)
 
 with col_g:
@@ -230,7 +230,7 @@ with col_l:
 
 st.markdown("---")
 
-# ── Bubble chart: Volume vs % Change ─────────────────────────────────────────
+# -- Bubble chart: Volume vs % Change -----------------------------------------
 st.subheader("📊 Market Map — Volume vs Price Change")
 plot_df = df[(df["Volume"] > 0) & (df["Pct_Change"] != 0)].copy()
 plot_df["Color"] = plot_df["Pct_Change"].apply(lambda x: "▲ Gainers" if x > 0 else "▼ Losers")
@@ -257,7 +257,7 @@ if not plot_df.empty:
 
 st.markdown("---")
 
-# ── Buy Recommendations ───────────────────────────────────────────────────────
+# -- Buy Recommendations -------------------------------------------------------
 st.subheader("💡 Buy Recommendations")
 
 snap_info = f"Based on {len(snaps)} snapshot(s)" if len(snaps) >= 2 else "Based on current session only (more snapshots improve accuracy)"
@@ -302,7 +302,7 @@ if recs is not None and not recs.empty:
 
 st.markdown("---")
 
-# ── Full price list ───────────────────────────────────────────────────────────
+# -- Full price list -----------------------------------------------------------
 with st.expander("📋 Full Equities Price List", expanded=False):
     search = st.text_input("Search symbol", placeholder="e.g. ZENITHBANK")
     show_df = df.copy()
@@ -335,7 +335,7 @@ with st.expander("📋 Full Equities Price List", expanded=False):
     )
     st.dataframe(styled, use_container_width=True, height=500)
 
-# ── Auto-refresh countdown ────────────────────────────────────────────────────
+# -- Auto-refresh countdown ----------------------------------------------------
 if auto_refresh:
     if st.session_state.last_fetch:
         elapsed_s  = int((datetime.now() - st.session_state.last_fetch).total_seconds())

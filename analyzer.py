@@ -17,7 +17,7 @@ HISTORY_DIR = Path("data/history")
 HISTORY_DIR.mkdir(parents=True, exist_ok=True)
 
 
-# ── Persistence ───────────────────────────────────────────────────────────────
+# -- Persistence ---------------------------------------------------------------
 
 def save_snapshot(df: pd.DataFrame) -> None:
     """Persist a snapshot to disk as JSON."""
@@ -48,7 +48,7 @@ def load_snapshots(last_n: int = 24) -> list[pd.DataFrame]:
     return frames
 
 
-# ── Core Analysis ─────────────────────────────────────────────────────────────
+# -- Core Analysis -------------------------------------------------------------
 
 def get_top_gainers(df: pd.DataFrame, n: int = 10) -> pd.DataFrame:
     """Return the top N stocks by percentage gain in the current session."""
@@ -64,7 +64,7 @@ def get_top_losers(df: pd.DataFrame, n: int = 10) -> pd.DataFrame:
     return losers[["Company", "Prev_Close", "Close", "Change", "Pct_Change", "Volume", "Value"]].reset_index(drop=True)
 
 
-# ── Multi-period Trend Scoring ─────────────────────────────────────────────────
+# -- Multi-period Trend Scoring -------------------------------------------------
 
 def build_price_history(snapshots: list[pd.DataFrame]) -> pd.DataFrame:
     """
@@ -287,7 +287,7 @@ def score_portfolio_stock(company: str, current_row: pd.Series, snapshots: list)
     }
 
 
-# ── Quick test ─────────────────────────────────────────────────────────────────
+# -- Quick test -----------------------------------------------------------------
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
     from scraper import get_equities_data

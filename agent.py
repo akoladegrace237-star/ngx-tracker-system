@@ -29,7 +29,7 @@ from analyzer import (
 )
 from reporter import build_report, print_report, save_report
 
-# ── Logging setup ─────────────────────────────────────────────────────────────
+# -- Logging setup -------------------------------------------------------------
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(name)s — %(message)s",
@@ -40,11 +40,30 @@ logging.basicConfig(
 )
 logger = logging.getLogger("ngx_agent")
 
+# NGX trading hours: Mon–Fri, 08:00–17:00 WAT
+TRADING_START = 8   # hour (WAT = local time on your PC)
+TRADING_END   = 17  # exclusive
+TRADING_DAYS  = {0, 1, 2, 3, 4}  # Mon=0 … Fri=4
 
-# ── Core job ──────────────────────────────────────────────────────────────────
+
+def is_trading_hours() -> bool:
+    """Return True if current local time is within NGX market hours."""
+    now = datetime.now()
+    return now.weekday() in TRADING_DAYS and TRADING_START <= now.hour < TRADING_END
+
+
+# -- Core job ------------------------------------------------------------------
 
 def run_analysis() -> None:
-    """Fetch data, analyse, report."""
+    """Fetch data, analyse, report — only during market hours."""
+    if not is_trading_hours():
+        now = datetime.now()
+        logger.info(
+            f"Outside trading hours ({now.strftime('%A %H:%M')}) — skipping. "
+            "Market runs Mon–Fri 08:00–17:00 WAT."
+        )
+        return
+
     logger.info("Starting NGX data fetch and analysis…")
 
     # 1. Fetch current data
@@ -57,7 +76,7 @@ def run_analysis() -> None:
     save_snapshot(df)
 
     # 3. Load historical snapshots (last 24 hrs)
-    snapshots = load_snapshots(last_n=24)
+    snapshots = load_snapshots(last_n=168)  # 7 days x 24 hrs
     logger.info(f"Loaded {len(snapshots)} historical snapshot(s) for trend analysis.")
 
     # 4. Compute gainers / losers
@@ -75,7 +94,7 @@ def run_analysis() -> None:
     logger.info("Analysis cycle complete.")
 
 
-# ── Entry point ───────────────────────────────────────────────────────────────
+# -- Entry point ---------------------------------------------------------------
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="NGX Equities Tracking Agent")
