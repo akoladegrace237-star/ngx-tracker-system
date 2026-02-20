@@ -208,6 +208,31 @@
     padding:10px 14px; box-shadow:var(--shadow); line-height:1.8;
   }
 
+  /* ── All Stocks table ── */
+  .all-stocks-toolbar{
+    display:flex; gap:8px; margin-bottom:10px; flex-wrap:wrap; align-items:center;
+  }
+  .all-stocks-toolbar input{
+    flex:1; min-width:160px; padding:8px 12px; border:1px solid var(--border);
+    border-radius:8px; font-size:.82rem; outline:none;
+  }
+  .all-stocks-toolbar select{
+    padding:8px 10px; border:1px solid var(--border);
+    border-radius:8px; font-size:.82rem; outline:none; background:#fff;
+  }
+  .all-stocks-toolbar .stock-count{
+    font-size:.75rem; color:var(--muted); white-space:nowrap;
+  }
+  #allStocksTable th{cursor:pointer; user-select:none;}
+  #allStocksTable th:hover{background:#e8eaed;}
+  .rank-badge{
+    display:inline-block; width:22px; height:22px; border-radius:50%;
+    background:var(--green); color:#fff; font-size:.65rem;
+    font-weight:800; line-height:22px; text-align:center;
+  }
+  .rank-badge.top3{background:var(--gold); color:#333;}
+  .rank-badge.bot3{background:var(--red);}
+
   /* ── Footer ── */
   footer{
     text-align:center; color:var(--muted); font-size:.72rem;
@@ -225,7 +250,7 @@
     <h1>NGX Equities Tracker</h1>
     <p>Nigerian Exchange — Live Intelligence</p>
   </div>
-  <div class="top-bar-badge">&#128336; 20 Feb 2026, 16:45 WAT</div>
+  <div class="top-bar-badge">&#128336; 20 Feb 2026, 16:55 WAT</div>
 </div>
 
 <div class="container">
@@ -234,12 +259,12 @@
   <div id="overview" style="scroll-margin-top:70px;">
     <div class="section-title">&#128200; Market Overview</div>
     <div class="kpi-grid">
-      <div class="kpi" data-tip="Total NGX equities tracked in today's session"><div class="val">148</div><div class="lbl">Total<br/>Stocks</div></div>
-      <div class="kpi green" data-tip="Stocks that closed HIGHER than their previous close"><div class="val">53</div><div class="lbl">Advancing<br/>&#9650;</div></div>
-      <div class="kpi red"   data-tip="Stocks that closed LOWER than their previous close"><div class="val">23</div><div class="lbl">Declining<br/>&#9660;</div></div>
-      <div class="kpi"       data-tip="Stocks whose price did not move from the previous close"><div class="val">72</div><div class="lbl">Unchanged<br/>&#8212;</div></div>
-      <div class="kpi green" data-tip="Average % price change across all stocks today"><div class="val">+1.42%</div><div class="lbl">Avg<br/>Change</div></div>
-      <div class="kpi gold"  data-tip="Hourly snapshots used for trend signals (~1 per trading hour, max 168 = 7 days)"><div class="val">7</div><div class="lbl">History<br/>Snaps</div></div>
+      <div class="kpi" data-tip="Total NGX equities tracked in today's session"><div class="val">5</div><div class="lbl">Total<br/>Stocks</div></div>
+      <div class="kpi green" data-tip="Stocks that closed HIGHER than their previous close"><div class="val">3</div><div class="lbl">Advancing<br/>&#9650;</div></div>
+      <div class="kpi red"   data-tip="Stocks that closed LOWER than their previous close"><div class="val">2</div><div class="lbl">Declining<br/>&#9660;</div></div>
+      <div class="kpi"       data-tip="Stocks whose price did not move from the previous close"><div class="val">0</div><div class="lbl">Unchanged<br/>&#8212;</div></div>
+      <div class="kpi green" data-tip="Average % price change across all stocks today"><div class="val">+0.20%</div><div class="lbl">Avg<br/>Change</div></div>
+      <div class="kpi gold"  data-tip="Hourly snapshots used for trend signals (~1 per trading hour, max 168 = 7 days)"><div class="val">0</div><div class="lbl">History<br/>Snaps</div></div>
     </div>
   </div>
 
@@ -255,7 +280,7 @@
     <div class="two-col">
 
       <div class="card">
-        <div class="card-header green" onclick="toggleCard('gainBody_wrap','gainArrow')">&#129001; Top 10 Gainers <span class="arrow" id="gainArrow">&#9660;</span></div>
+        <div class="card-header green" onclick="toggleCard('gainBody_wrap','gainArrow')">&#129001; Top 3 Gainers <span class="arrow" id="gainArrow">&#9660;</span></div>
         <div class="card-body" id="gainBody_wrap">
           <canvas id="gainChart"></canvas>
           <div class="table-wrap">
@@ -274,7 +299,7 @@
       </div>
 
       <div class="card">
-        <div class="card-header red" onclick="toggleCard('lossBody_wrap','lossArrow')">&#128308; Top 10 Losers <span class="arrow" id="lossArrow">&#9660;</span></div>
+        <div class="card-header red" onclick="toggleCard('lossBody_wrap','lossArrow')">&#128308; Top 3 Losers <span class="arrow" id="lossArrow">&#9660;</span></div>
         <div class="card-body" id="lossBody_wrap">
           <canvas id="lossChart"></canvas>
           <div class="table-wrap">
@@ -298,11 +323,43 @@
   <!-- Recommendations -->
   <div id="recs" style="scroll-margin-top:70px;">
     <div class="section-title">&#128161; Buy Recommendations</div>
-    <p style="font-size:.75rem;color:var(--muted);margin-bottom:10px;padding:0 4px;">Trend analysis based on 7 hourly snapshot(s). More snapshots improve signal accuracy.</p>
+    <p style="font-size:.75rem;color:var(--muted);margin-bottom:10px;padding:0 4px;">Trend analysis based on 0 hourly snapshot(s). More snapshots improve signal accuracy.</p>
     <div class="rec-grid" id="recGrid"></div>
     <div class="score-guide">
       <b>Signal guide:</b> STRONG BUY &#8805;30pts &nbsp;&#183;&nbsp; BUY &#8805;15pts &nbsp;&#183;&nbsp; WATCH &#8805;5pts<br/>
       <b>Factors:</b> Momentum (40%) &middot; Consistency (20%) &middot; Volume (10%) &middot; Recent trend (30%); &minus;15pts for 3 down-sessions in a row
+    </div>
+  </div>
+
+  <!-- All Stocks -->
+  <div id="allstocks" style="scroll-margin-top:70px;">
+    <div class="section-title">&#128196; All NGX Stocks — Ranked by Performance</div>
+    <div class="all-stocks-toolbar">
+      <input type="text" id="stockSearch" placeholder="&#128269; Search company name..." oninput="filterStocks()"/>
+      <select id="sortCol" onchange="sortStocks()">
+        <option value="rank">Rank (% Change)</option>
+        <option value="name">Name A–Z</option>
+        <option value="close">Close Price</option>
+        <option value="volume">Volume</option>
+      </select>
+      <span class="stock-count" id="stockCount"></span>
+    </div>
+    <div class="card">
+      <div class="table-wrap">
+        <table id="allStocksTable">
+          <thead><tr>
+            <th onclick="sortByCol('rank')">#</th>
+            <th onclick="sortByCol('name')" style="text-align:left">Company</th>
+            <th onclick="sortByCol('close')">Close &#8358;</th>
+            <th onclick="sortByCol('pct')">% Chg</th>
+            <th onclick="sortByCol('change')" class="hide-mobile">Chg &#8358;</th>
+            <th onclick="sortByCol('high')" class="hide-mobile">High</th>
+            <th onclick="sortByCol('low')" class="hide-mobile">Low</th>
+            <th onclick="sortByCol('volume')">Volume</th>
+          </tr></thead>
+          <tbody id="allStocksBody"></tbody>
+        </table>
+      </div>
     </div>
   </div>
 
@@ -319,6 +376,7 @@
   <a href="#portfolio"><span class="icon">&#128202;</span>Portfolio</a>
   <a href="#markets"><span class="icon">&#128308;</span>Movers</a>
   <a href="#recs"><span class="icon">&#128161;</span>Picks</a>
+  <a href="#allstocks"><span class="icon">&#128196;</span>All</a>
 </nav>
 
 <script>
@@ -329,12 +387,13 @@ function toggleCard(bodyId, arrowId) {
   arrow.style.transform = isNowCollapsed ? 'rotate(-90deg)' : 'rotate(0deg)';
 }
 
-const GAINERS     = [{"Company": "FIDSON", "Prev_Close": 79.0, "Close": 86.9, "Change": 7.9, "Pct_Change": 10.0, "Volume": 1776827.0, "Value": 152558353.1}, {"Company": "JAIZBANK", "Prev_Close": 10.0, "Close": 11.0, "Change": 1.0, "Pct_Change": 10.0, "Volume": 19396690.0, "Value": 210544533.92}, {"Company": "NPFMCRFBK", "Prev_Close": 5.7, "Close": 6.27, "Change": 0.57, "Pct_Change": 10.0, "Volume": 8737015.0, "Value": 53740613.2}, {"Company": "DEAPCAP [DWL]", "Prev_Close": 6.93, "Close": 7.62, "Change": 0.69, "Pct_Change": 9.96, "Volume": 6515479.0, "Value": 49647949.98}, {"Company": "CUSTODIAN", "Prev_Close": 63.9, "Close": 70.25, "Change": 6.35, "Pct_Change": 9.94, "Volume": 1460704.0, "Value": 101687349.35}, {"Company": "MBENEFIT", "Prev_Close": 4.93, "Close": 5.42, "Change": 0.49, "Pct_Change": 9.94, "Volume": 79023338.0, "Value": 427077029.65}, {"Company": "ZICHIS", "Prev_Close": 15.79, "Close": 17.36, "Change": 1.57, "Pct_Change": 9.94, "Volume": 9925942.0, "Value": 172314353.12}, {"Company": "FTNCOCOA [RST]", "Prev_Close": 5.85, "Close": 6.43, "Change": 0.58, "Pct_Change": 9.91, "Volume": 4395040.0, "Value": 27990162.79}, {"Company": "WAPIC", "Prev_Close": 3.35, "Close": 3.68, "Change": 0.33, "Pct_Change": 9.85, "Volume": 2606670.0, "Value": 9361887.95}, {"Company": "JAPAULGOLD", "Prev_Close": 3.66, "Close": 4.02, "Change": 0.36, "Pct_Change": 9.84, "Volume": 24558432.0, "Value": 98724896.64}];
-const LOSERS      = [{"Company": "NSLTECH", "Prev_Close": 1.8, "Close": 1.62, "Change": -0.18, "Pct_Change": -10.0, "Volume": 25386529.0, "Value": 41679677.62}, {"Company": "SOVRENINS [MRF]", "Prev_Close": 2.57, "Close": 2.32, "Change": -0.25, "Pct_Change": -9.73, "Volume": 30631934.0, "Value": 77510001.86}, {"Company": "ELLAHLAKES", "Prev_Close": 13.9, "Close": 12.8, "Change": -1.1, "Pct_Change": -7.91, "Volume": 26146373.0, "Value": 341295689.2}, {"Company": "INTENEGINS", "Prev_Close": 3.6, "Close": 3.4, "Change": -0.2, "Pct_Change": -5.56, "Volume": 1350056.0, "Value": 4564533.48}, {"Company": "ABCTRANS", "Prev_Close": 9.5, "Close": 9.0, "Change": -0.5, "Pct_Change": -5.26, "Volume": 2158541.0, "Value": 19729433.76}, {"Company": "LEARNAFRCA", "Prev_Close": 9.4, "Close": 9.0, "Change": -0.4, "Pct_Change": -4.26, "Volume": 986302.0, "Value": 8654790.65}, {"Company": "IMG", "Prev_Close": 37.5, "Close": 36.0, "Change": -1.5, "Pct_Change": -4.0, "Volume": 170615.0, "Value": 6111989.95}, {"Company": "CAVERTON", "Prev_Close": 7.3, "Close": 7.05, "Change": -0.25, "Pct_Change": -3.42, "Volume": 1960819.0, "Value": 14074096.05}, {"Company": "FCMB", "Prev_Close": 12.3, "Close": 11.9, "Change": -0.4, "Pct_Change": -3.25, "Volume": 7061768.0, "Value": 85187093.3}, {"Company": "VFDGROUP", "Prev_Close": 13.8, "Close": 13.4, "Change": -0.4, "Pct_Change": -2.9, "Volume": 1663565.0, "Value": 21928934.3}];
-const RECS        = [{"Company": "WAPIC", "Score": 107.6, "momentum_%": 0.0, "consistency": 0.57, "volume_trend_%": 1150.7, "recent_momentum_%": 320.57, "total_score": 107.6, "consecutive_declines": null, "Close": 3.68, "Pct_Change": 9.85, "Volume": 2606670.0, "Recommendation": "STRONG BUY"}, {"Company": "ETERNA [MRF]", "Score": 101.43, "momentum_%": 0.0, "consistency": 0.57, "volume_trend_%": 282.75, "recent_momentum_%": 300.0, "total_score": 101.43, "consecutive_declines": null, "Close": 32.5, "Pct_Change": 1.56, "Volume": 464008.0, "Recommendation": "STRONG BUY"}, {"Company": "ACADEMY", "Score": 101.43, "momentum_%": 0.0, "consistency": 0.57, "volume_trend_%": 169.32, "recent_momentum_%": 300.0, "total_score": 101.43, "consecutive_declines": null, "Close": 8.4, "Pct_Change": 0.6, "Volume": 415369.0, "Recommendation": "STRONG BUY"}, {"Company": "NAHCO", "Score": 101.43, "momentum_%": 0.0, "consistency": 0.57, "volume_trend_%": 672.77, "recent_momentum_%": 300.0, "total_score": 101.43, "consecutive_declines": null, "Close": 178.8, "Pct_Change": 5.18, "Volume": 1533985.0, "Recommendation": "STRONG BUY"}, {"Company": "JBERGER", "Score": 98.9, "momentum_%": 0.0, "consistency": 0.57, "volume_trend_%": 2113.46, "recent_momentum_%": 291.57, "total_score": 98.9, "consecutive_declines": null, "Close": 274.1, "Pct_Change": 5.42, "Volume": 1029460.0, "Recommendation": "STRONG BUY"}];
-const PORTFOLIO   = [{"Company": "AFRIPRUD", "Prev_Close": 15.95, "Opening_Price": 15.95, "High": 16.3, "Low": 15.85, "Close": 16.0, "Change": 0.05, "Trades": 318.0, "Volume": 3875600.0, "Value": 62198492.8, "Trade_Date": "20 Feb 26", "Pct_Change": 0.31, "Fetched_At": "2026-02-20 16:45:32", "_qty": 13200, "_buy_price": 15.0, "_stop_loss_pct": 10}, {"Company": "UNIVINSURE", "Prev_Close": 1.44, "Opening_Price": 1.44, "High": 1.57, "Low": 1.42, "Close": 1.5, "Change": 0.06, "Trades": 265.0, "Volume": 21298048.0, "Value": 32017795.74, "Trade_Date": "20 Feb 26", "Pct_Change": 4.17, "Fetched_At": "2026-02-20 16:45:32", "_qty": 542000, "_buy_price": 1.1, "_stop_loss_pct": 8}, {"Company": "CUTIX", "Prev_Close": 4.0, "Opening_Price": 4.0, "High": 4.0, "Low": 3.9, "Close": 3.95, "Change": -0.05, "Trades": 383.0, "Volume": 7419236.0, "Value": 29419596.23, "Trade_Date": "20 Feb 26", "Pct_Change": -1.25, "Fetched_At": "2026-02-20 16:45:32", "_qty": 185000, "_buy_price": 2.6, "_stop_loss_pct": 10}, {"Company": "SOVRENINS [MRF]", "Prev_Close": 2.57, "Opening_Price": 2.57, "High": 2.78, "Low": 2.32, "Close": 2.32, "Change": -0.25, "Trades": 302.0, "Volume": 30631934.0, "Value": 77510001.86, "Trade_Date": "20 Feb 26", "Pct_Change": -9.73, "Fetched_At": "2026-02-20 16:45:32", "_qty": 200000, "_buy_price": 1.0, "_stop_loss_pct": 12}];
-const PORT_MISS   = [];
-const PORT_SIGNALS = {"AFRIPRUD": {"signal": "HOLD", "reason": "Slight gain of 0.9% — stable, continue monitoring", "net_change_pct": 0.95, "recent_avg_pct": 0.31, "consec_down": 0, "sessions": 7, "week_change_pct": 0.95, "three_day_change_pct": 0.95}, "UNIVINSURE": {"signal": "KEEP", "reason": "Up 5.6% over 7 sessions — strong trend", "net_change_pct": 5.63, "recent_avg_pct": 4.17, "consec_down": 0, "sessions": 7, "week_change_pct": 5.63, "three_day_change_pct": 5.63}, "CUTIX": {"signal": "HOLD", "reason": "Slight gain of 0.5% — stable, continue monitoring", "net_change_pct": 0.51, "recent_avg_pct": -0.83, "consec_down": 2, "sessions": 7, "week_change_pct": 0.51, "three_day_change_pct": 0.51}, "SOVRENINS [MRF]": {"signal": "CONSIDER SELLING", "reason": "Down 10.8% overall; recent avg -6.1%/session", "net_change_pct": -10.77, "recent_avg_pct": -6.1, "consec_down": 2, "sessions": 7, "week_change_pct": -10.77, "three_day_change_pct": -10.77}};
+const GAINERS     = [{"Company": "GTCO", "Prev_Close": 34.0, "Close": 35.0, "Change": 1.0, "Pct_Change": 2.94, "Volume": 500000, "Value": 17500000}, {"Company": "ACCESSCORP", "Prev_Close": 20.0, "Close": 20.5, "Change": 0.5, "Pct_Change": 2.5, "Volume": 1000000, "Value": 20500000}, {"Company": "STANBIC", "Prev_Close": 49.0, "Close": 50.0, "Change": 1.0, "Pct_Change": 2.04, "Volume": 300000, "Value": 15000000}];
+const LOSERS      = [{"Company": "UBA", "Prev_Close": 10.5, "Close": 10.0, "Change": -0.5, "Pct_Change": -4.76, "Volume": 250000, "Value": 2500000}, {"Company": "ZENITHBANK", "Prev_Close": 29.0, "Close": 28.5, "Change": -0.5, "Pct_Change": -1.72, "Volume": 750000, "Value": 21375000}];
+const RECS        = [{"Company": "GTCO", "Close": 35.0, "Pct_Change": 2.94, "Volume": 500000, "Score": 38.5797542096, "Recommendation": "WATCH / BUY (single-session)"}, {"Company": "ACCESSCORP", "Close": 20.5, "Pct_Change": 2.5, "Volume": 1000000, "Score": 34.5387788949, "Recommendation": "WATCH / BUY (single-session)"}, {"Company": "STANBIC", "Close": 50.0, "Pct_Change": 2.04, "Volume": 300000, "Score": 25.7275438174, "Recommendation": "WATCH / BUY (single-session)"}];
+const PORTFOLIO   = [];
+const PORT_MISS   = ["AFRIPRUD", "UNIVINSURE", "CUTIX", "SOVRENINS"];
+const PORT_SIGNALS = {};
+const ALL_STOCKS  = [{"Company": "GTCO", "Close": 35.0, "Pct_Change": 2.94, "Change": 1.0, "Volume": 500000, "High": 35.5, "Low": 34.5}, {"Company": "ACCESSCORP", "Close": 20.5, "Pct_Change": 2.5, "Change": 0.5, "Volume": 1000000, "High": 21.0, "Low": 20.0}, {"Company": "STANBIC", "Close": 50.0, "Pct_Change": 2.04, "Change": 1.0, "Volume": 300000, "High": 51.0, "Low": 49.5}, {"Company": "ZENITHBANK", "Close": 28.5, "Pct_Change": -1.72, "Change": -0.5, "Volume": 750000, "High": 29.0, "Low": 28.0}, {"Company": "UBA", "Close": 10.0, "Pct_Change": -4.76, "Change": -0.5, "Volume": 250000, "High": 10.5, "Low": 9.8}];
 
 // ── Gainers table & chart ──
 const gainBody = document.getElementById('gainBody');
@@ -506,6 +565,90 @@ document.querySelectorAll(".kpi[data-tip]").forEach(el => {
     setTimeout(() => el.classList.remove("tip-open"), 3000);
   });
 });
+
+// ── All Stocks ranked table ──
+let _filteredStocks = [...ALL_STOCKS];
+let _sortKey = 'rank';
+let _sortAsc = true;
+
+function renderAllStocks() {
+  const tbody = document.getElementById('allStocksBody');
+  const total = ALL_STOCKS.length;
+  tbody.innerHTML = '';
+  _filteredStocks.forEach((r, i) => {
+    const origRank = ALL_STOCKS.indexOf(r) + 1;
+    const pct    = r.Pct_Change ?? 0;
+    const sign   = pct >= 0 ? '+' : '';
+    const cls    = pct > 0 ? 'up' : pct < 0 ? 'dn' : 'neu';
+    const badgeCls = origRank <= 3 ? 'top3' : origRank > total - 3 ? 'bot3' : '';
+    tbody.innerHTML += `<tr>
+      <td><span class="rank-badge ${badgeCls}">${origRank}</span></td>
+      <td style="text-align:left">${r.Company}</td>
+      <td>${r.Close?.toFixed(2) ?? '—'}</td>
+      <td class="${cls}">${sign}${pct.toFixed(2)}%</td>
+      <td class="${cls} hide-mobile">${sign}${r.Change?.toFixed(2) ?? '0'}</td>
+      <td class="hide-mobile">${r.High?.toFixed(2) ?? '—'}</td>
+      <td class="hide-mobile">${r.Low?.toFixed(2) ?? '—'}</td>
+      <td>${r.Volume ? r.Volume.toLocaleString() : '—'}</td>
+    </tr>`;
+  });
+  document.getElementById('stockCount').textContent =
+    _filteredStocks.length === total
+      ? total + ' stocks'
+      : _filteredStocks.length + ' of ' + total + ' stocks';
+}
+
+function filterStocks() {
+  const q = document.getElementById('stockSearch').value.trim().toUpperCase();
+  _filteredStocks = q
+    ? ALL_STOCKS.filter(r => r.Company.toUpperCase().includes(q))
+    : [...ALL_STOCKS];
+  sortStocks(false);
+  renderAllStocks();
+}
+
+function sortByCol(key) {
+  if (_sortKey === key) { _sortAsc = !_sortAsc; }
+  else { _sortKey = key; _sortAsc = key === 'rank' || key === 'name'; }
+  const keyMap = {
+    rank:   r => ALL_STOCKS.indexOf(r),
+    name:   r => r.Company,
+    close:  r => -(r.Close ?? 0),
+    pct:    r => -(r.Pct_Change ?? 0),
+    change: r => -(r.Change ?? 0),
+    high:   r => -(r.High ?? 0),
+    low:    r => -(r.Low ?? 0),
+    volume: r => -(r.Volume ?? 0),
+  };
+  const fn = keyMap[key] || keyMap['rank'];
+  _filteredStocks.sort((a, b) => {
+    const av = fn(a), bv = fn(b);
+    if (av < bv) return _sortAsc ? -1 : 1;
+    if (av > bv) return _sortAsc ? 1 : -1;
+    return 0;
+  });
+  renderAllStocks();
+}
+
+function sortStocks(doRender = true) {
+  const key = document.getElementById('sortCol')?.value || _sortKey;
+  const keyMap = {
+    rank:   r => ALL_STOCKS.indexOf(r),
+    name:   r => r.Company,
+    close:  r => -(r.Close ?? 0),
+    pct:    r => -(r.Pct_Change ?? 0),
+    volume: r => -(r.Volume ?? 0),
+  };
+  const fn = keyMap[key] || keyMap['rank'];
+  _filteredStocks.sort((a, b) => {
+    const av = fn(a), bv = fn(b);
+    return av < bv ? -1 : av > bv ? 1 : 0;
+  });
+  if (doRender) renderAllStocks();
+}
+
+// Initial render on page load
+renderAllStocks();
 </script>
 </body>
 </html>

@@ -301,6 +301,31 @@ HTML_TEMPLATE = """<!DOCTYPE html>
     padding:10px 14px; box-shadow:var(--shadow); line-height:1.8;
   }}
 
+  /* ── All Stocks table ── */
+  .all-stocks-toolbar{{
+    display:flex; gap:8px; margin-bottom:10px; flex-wrap:wrap; align-items:center;
+  }}
+  .all-stocks-toolbar input{{
+    flex:1; min-width:160px; padding:8px 12px; border:1px solid var(--border);
+    border-radius:8px; font-size:.82rem; outline:none;
+  }}
+  .all-stocks-toolbar select{{
+    padding:8px 10px; border:1px solid var(--border);
+    border-radius:8px; font-size:.82rem; outline:none; background:#fff;
+  }}
+  .all-stocks-toolbar .stock-count{{
+    font-size:.75rem; color:var(--muted); white-space:nowrap;
+  }}
+  #allStocksTable th{{cursor:pointer; user-select:none;}}
+  #allStocksTable th:hover{{background:#e8eaed;}}
+  .rank-badge{{
+    display:inline-block; width:22px; height:22px; border-radius:50%;
+    background:var(--green); color:#fff; font-size:.65rem;
+    font-weight:800; line-height:22px; text-align:center;
+  }}
+  .rank-badge.top3{{background:var(--gold); color:#333;}}
+  .rank-badge.bot3{{background:var(--red);}}
+
   /* ── Footer ── */
   footer{{
     text-align:center; color:var(--muted); font-size:.72rem;
@@ -399,6 +424,38 @@ HTML_TEMPLATE = """<!DOCTYPE html>
     </div>
   </div>
 
+  <!-- All Stocks -->
+  <div id="allstocks" style="scroll-margin-top:70px;">
+    <div class="section-title">&#128196; All NGX Stocks — Ranked by Performance</div>
+    <div class="all-stocks-toolbar">
+      <input type="text" id="stockSearch" placeholder="&#128269; Search company name..." oninput="filterStocks()"/>
+      <select id="sortCol" onchange="sortStocks()">
+        <option value="rank">Rank (% Change)</option>
+        <option value="name">Name A–Z</option>
+        <option value="close">Close Price</option>
+        <option value="volume">Volume</option>
+      </select>
+      <span class="stock-count" id="stockCount"></span>
+    </div>
+    <div class="card">
+      <div class="table-wrap">
+        <table id="allStocksTable">
+          <thead><tr>
+            <th onclick="sortByCol('rank')">#</th>
+            <th onclick="sortByCol('name')" style="text-align:left">Company</th>
+            <th onclick="sortByCol('close')">Close &#8358;</th>
+            <th onclick="sortByCol('pct')">% Chg</th>
+            <th onclick="sortByCol('change')" class="hide-mobile">Chg &#8358;</th>
+            <th onclick="sortByCol('high')" class="hide-mobile">High</th>
+            <th onclick="sortByCol('low')" class="hide-mobile">Low</th>
+            <th onclick="sortByCol('volume')">Volume</th>
+          </tr></thead>
+          <tbody id="allStocksBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <footer>
@@ -412,6 +469,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
   <a href="#portfolio"><span class="icon">&#128202;</span>Portfolio</a>
   <a href="#markets"><span class="icon">&#128308;</span>Movers</a>
   <a href="#recs"><span class="icon">&#128161;</span>Picks</a>
+  <a href="#allstocks"><span class="icon">&#128196;</span>All</a>
 </nav>
 
 <script>
@@ -428,6 +486,7 @@ const RECS        = {recs_json};
 const PORTFOLIO   = {portfolio_json};
 const PORT_MISS   = {missing_json};
 const PORT_SIGNALS = {signals_json};
+const ALL_STOCKS  = {all_stocks_json};
 
 // ── Gainers table & chart ──
 const gainBody = document.getElementById('gainBody');
@@ -599,6 +658,90 @@ document.querySelectorAll(".kpi[data-tip]").forEach(el => {{
     setTimeout(() => el.classList.remove("tip-open"), 3000);
   }});
 }});
+
+// ── All Stocks ranked table ──
+let _filteredStocks = [...ALL_STOCKS];
+let _sortKey = 'rank';
+let _sortAsc = true;
+
+function renderAllStocks() {{
+  const tbody = document.getElementById('allStocksBody');
+  const total = ALL_STOCKS.length;
+  tbody.innerHTML = '';
+  _filteredStocks.forEach((r, i) => {{
+    const origRank = ALL_STOCKS.indexOf(r) + 1;
+    const pct    = r.Pct_Change ?? 0;
+    const sign   = pct >= 0 ? '+' : '';
+    const cls    = pct > 0 ? 'up' : pct < 0 ? 'dn' : 'neu';
+    const badgeCls = origRank <= 3 ? 'top3' : origRank > total - 3 ? 'bot3' : '';
+    tbody.innerHTML += `<tr>
+      <td><span class="rank-badge ${{badgeCls}}">${{origRank}}</span></td>
+      <td style="text-align:left">${{r.Company}}</td>
+      <td>${{r.Close?.toFixed(2) ?? '\u2014'}}</td>
+      <td class="${{cls}}">${{sign}}${{pct.toFixed(2)}}%</td>
+      <td class="${{cls}} hide-mobile">${{sign}}${{r.Change?.toFixed(2) ?? '0'}}</td>
+      <td class="hide-mobile">${{r.High?.toFixed(2) ?? '\u2014'}}</td>
+      <td class="hide-mobile">${{r.Low?.toFixed(2) ?? '\u2014'}}</td>
+      <td>${{r.Volume ? r.Volume.toLocaleString() : '\u2014'}}</td>
+    </tr>`;
+  }});
+  document.getElementById('stockCount').textContent =
+    _filteredStocks.length === total
+      ? total + ' stocks'
+      : _filteredStocks.length + ' of ' + total + ' stocks';
+}}
+
+function filterStocks() {{
+  const q = document.getElementById('stockSearch').value.trim().toUpperCase();
+  _filteredStocks = q
+    ? ALL_STOCKS.filter(r => r.Company.toUpperCase().includes(q))
+    : [...ALL_STOCKS];
+  sortStocks(false);
+  renderAllStocks();
+}}
+
+function sortByCol(key) {{
+  if (_sortKey === key) {{ _sortAsc = !_sortAsc; }}
+  else {{ _sortKey = key; _sortAsc = key === 'rank' || key === 'name'; }}
+  const keyMap = {{
+    rank:   r => ALL_STOCKS.indexOf(r),
+    name:   r => r.Company,
+    close:  r => -(r.Close ?? 0),
+    pct:    r => -(r.Pct_Change ?? 0),
+    change: r => -(r.Change ?? 0),
+    high:   r => -(r.High ?? 0),
+    low:    r => -(r.Low ?? 0),
+    volume: r => -(r.Volume ?? 0),
+  }};
+  const fn = keyMap[key] || keyMap['rank'];
+  _filteredStocks.sort((a, b) => {{
+    const av = fn(a), bv = fn(b);
+    if (av < bv) return _sortAsc ? -1 : 1;
+    if (av > bv) return _sortAsc ? 1 : -1;
+    return 0;
+  }});
+  renderAllStocks();
+}}
+
+function sortStocks(doRender = true) {{
+  const key = document.getElementById('sortCol')?.value || _sortKey;
+  const keyMap = {{
+    rank:   r => ALL_STOCKS.indexOf(r),
+    name:   r => r.Company,
+    close:  r => -(r.Close ?? 0),
+    pct:    r => -(r.Pct_Change ?? 0),
+    volume: r => -(r.Volume ?? 0),
+  }};
+  const fn = keyMap[key] || keyMap['rank'];
+  _filteredStocks.sort((a, b) => {{
+    const av = fn(a), bv = fn(b);
+    return av < bv ? -1 : av > bv ? 1 : 0;
+  }});
+  if (doRender) renderAllStocks();
+}}
+
+// Initial render on page load
+renderAllStocks();
 </script>
 </body>
 </html>
@@ -667,6 +810,14 @@ def generate(df: pd.DataFrame, snapshots: list, top_n: int = 10, rec_n: int = 5)
         portfolio_json = json.dumps(to_records(port_df) if not port_df.empty else [], ensure_ascii=False),
         missing_json   = json.dumps(port_missing,          ensure_ascii=False),
         signals_json   = json.dumps(port_signals,          ensure_ascii=False),
+        all_stocks_json = json.dumps(
+            to_records(
+                df.sort_values("Pct_Change", ascending=False)
+                  [["Company", "Close", "Pct_Change", "Change", "Volume", "High", "Low"]]
+                  .reset_index(drop=True)
+            ),
+            ensure_ascii=False
+        ),
     )
 
     OUTPUT.write_text(html, encoding="utf-8")
