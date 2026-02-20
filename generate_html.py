@@ -607,37 +607,38 @@ document.querySelectorAll(".kpi[data-tip]").forEach(el => {{
 
 # ── Generator ─────────────────────────────────────────────────────────────────
 
+# ── Generator ─────────────────────────────────────────────────────────────────
+
 def generate(df: pd.DataFrame, snapshots: list, top_n: int = 10, rec_n: int = 5) -> None:
     now_str = datetime.now().strftime("%d %b %Y, %H:%M WAT")
 
     gainers = get_top_gainers(df, n=top_n)
     losers  = get_top_losers(df,  n=top_n)
     recs    = generate_recommendations(df, snapshots, top_n=rec_n)
-    
-     # find_portfolio_stocks always returns a DataFrame (may be empty) + list
+
+    # find_portfolio_stocks always returns a DataFrame (may be empty) + list
     port_df, port_missing = find_portfolio_stocks(df, PORTFOLIO_STOCKS)
 
     # ── Inject qty, buy_price, stop_loss_pct from PORTFOLIO_CONFIG ──
     if not port_df.empty:
         port_df = port_df.copy()
-        port_df["_qty"]           = port_df["Company"].apply(lambda c: _get_config_for(c).get("qty", 0))
-        port_df["_buy_price"]     = port_df["Company"].apply(lambda c: _get_config_for(c).get("buy_price", 0))
+        port_df["_qty"]           = port_df["Company"].apply(lambda c: _get_config_for(c).get("qty",           0))
+        port_df["_buy_price"]     = port_df["Company"].apply(lambda c: _get_config_for(c).get("buy_price",     0))
         port_df["_stop_loss_pct"] = port_df["Company"].apply(lambda c: _get_config_for(c).get("stop_loss_pct", 10))
 
     # ── Compute SELL/HOLD/KEEP signals ──
-    # ── Compute SELL/HOLD/KEEP signals ──
-port_signals = {}
-for _, row in port_df.iterrows():
-    sig = score_portfolio_stock(              # ← FIXED: now passes buy_price & stop_loss_pct
-        row["Company"],
-        row,
-        snapshots,
-        buy_price     = float(row.get("_buy_price",     0)),
-        stop_loss_pct = float(row.get("_stop_loss_pct", 10)),
-    )
-    port_signals[row["Company"]] = sig
+    port_signals = {}                                    # ← 4 spaces indent
+    for _, row in port_df.iterrows():                    # ← 4 spaces indent
+        sig = score_portfolio_stock(                     # ← 8 spaces indent
+            row["Company"],
+            row,
+            snapshots,
+            buy_price     = float(row.get("_buy_price",     0)),
+            stop_loss_pct = float(row.get("_stop_loss_pct", 10)),
+        )
+        port_signals[row["Company"]] = sig               # ← 8 spaces indent
 
-    total     = len(df)
+    total     = len(df)                                  # ← 4 spaces indent
     advancing = int((df["Pct_Change"] > 0).sum())
     declining = int((df["Pct_Change"] < 0).sum())
     unchanged = int((df["Pct_Change"] == 0).sum())
@@ -695,5 +696,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
