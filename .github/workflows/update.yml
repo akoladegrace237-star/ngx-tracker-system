@@ -1,9 +1,11 @@
 name: Update NGX Tracker
-
+# Change your schedule from hourly to every 30 minutes during trading hours
 on:
   schedule:
-    # Run every hour from 8 AM to 2 PM UTC (9 AM - 3 PM WAT) on weekdays only
-    - cron: "0 8-14 * * 1-5"  # Monday-Friday, 8 AM to 2 PM UTC (covers 9:30 AM - 2:30 PM WAT)
+    # NGX trades 10:00–14:30 WAT (09:00–13:30 UTC)
+    - cron: '*/30 9-14 * * 1-5'   # Every 30 mins, Mon-Fri, trading hours
+    - cron: '0 8 * * 1-5'          # Pre-market snapshot
+    - cron: '0 15 * * 1-5'         # Post-market closing snapshot
   workflow_dispatch:  # Still allow manual trigger
 
 permissions:
