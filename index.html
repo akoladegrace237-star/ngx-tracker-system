@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>NGX Equities Tracker</title>
+<link rel="icon" href="https://ngxgroup.com/wp-content/uploads/2019/11/Nigerian-Exchange-Group-Logo-1.png"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  :root{
+    --green:#1a6b3c; --green-light:#e8f5ee; --red:#c0392b; --red-light:#fdf2f2;
+    --gold:#f39c12; --bg:#f4f6f8; --card:#fff; --text:#1a1a2e; --muted:#6c757d;
+    --radius:12px; --shadow:0 2px 12px rgba(0,0,0,.08);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:'Segoe UI',system-ui,sans-serif; background:var(--bg); color:var(--text); padding-bottom:40px;}
+
+  /* ── Header ── */
+  header{background:linear-gradient(135deg,#1a3a2a 0%,#1a6b3c 100%);
+    color:#fff; padding:20px 16px 16px; text-align:center;}
+  header img{height:38px; margin-bottom:8px;}
+  header h1{font-size:1.5rem; font-weight:700; letter-spacing:-.5px;}
+  header p{font-size:.82rem; opacity:.8; margin-top:4px;}
+  .badge{display:inline-block; background:rgba(255,255,255,.18);
+    border-radius:20px; padding:3px 12px; font-size:.78rem; margin-top:8px;}
+
+  /* ── Layout ── */
+  .container{max-width:1100px; margin:0 auto; padding:16px;}
+  .section-title{font-size:1.1rem; font-weight:700; color:var(--text);
+    margin:24px 0 12px; padding-left:10px;
+    border-left:4px solid var(--green);}
+
+  /* ── KPI row ── */
+  .kpi-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:4px;}
+  @media(min-width:600px){.kpi-grid{grid-template-columns:repeat(6,1fr);}}
+  .kpi{background:var(--card); border-radius:var(--radius); padding:14px 8px;
+    text-align:center; box-shadow:var(--shadow);}
+  .kpi .val{font-size:1.4rem; font-weight:800; line-height:1;}
+  .kpi .lbl{font-size:.7rem; color:var(--muted); margin-top:4px; text-transform:uppercase; letter-spacing:.5px;}
+  .kpi.green .val{color:var(--green);}
+  .kpi.red   .val{color:var(--red);}
+  .kpi.gold  .val{color:var(--gold);}
+
+  /* ── Two-column grid ── */
+  .two-col{display:grid; grid-template-columns:1fr; gap:16px;}
+  @media(min-width:768px){.two-col{grid-template-columns:1fr 1fr;}}
+
+  /* ── Card ── */
+  .card{background:var(--card); border-radius:var(--radius);
+    box-shadow:var(--shadow); overflow:hidden;}
+  .card-header{padding:12px 16px; font-weight:700; font-size:.95rem;
+    display:flex; align-items:center; gap:8px;}
+  .card-header.green{background:var(--green-light); color:var(--green);}
+  .card-header.red  {background:var(--red-light);   color:var(--red);}
+  .card-body{padding:12px 16px;}
+  canvas{max-height:220px;}
+
+  /* ── Table ── */
+  table{width:100%; border-collapse:collapse; font-size:.82rem;}
+  th{background:#f1f3f5; color:var(--muted); font-weight:600;
+    text-align:right; padding:7px 10px; font-size:.72rem; text-transform:uppercase;}
+  th:first-child{text-align:left;}
+  td{padding:7px 10px; border-bottom:1px solid #f0f0f0; text-align:right;}
+  td:first-child{text-align:left; font-weight:600;}
+  tr:last-child td{border-bottom:none;}
+  .up  {color:var(--green); font-weight:700;}
+  .dn  {color:var(--red);   font-weight:700;}
+  .neu {color:var(--muted);}
+
+  /* ── Rec cards ── */
+  .rec-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:12px;}
+  @media(min-width:600px){.rec-grid{grid-template-columns:repeat(3,1fr);}}
+  @media(min-width:900px){.rec-grid{grid-template-columns:repeat(5,1fr);}}
+  .rec-card{background:var(--card); border-radius:var(--radius);
+    box-shadow:var(--shadow); padding:16px 12px; text-align:center;
+    border-top:4px solid var(--green);}
+  .rec-card.watch{border-top-color:var(--gold);}
+  .rec-sym  {font-size:1rem; font-weight:800; margin-bottom:4px;}
+  .rec-price{font-size:1.5rem; font-weight:800; color:var(--green); margin:4px 0;}
+  .rec-price.dn{color:var(--red);}
+  .rec-pct  {font-size:.9rem; margin-bottom:8px;}
+  .rec-row  {font-size:.75rem; color:var(--muted); margin:3px 0;}
+  .rec-row b{color:var(--text);}
+  .signal{display:inline-block; margin-top:10px; padding:4px 14px;
+    border-radius:20px; font-size:.75rem; font-weight:700;
+    background:var(--green); color:#fff;}
+  .signal.watch{background:var(--gold);}
+
+  /* ── Portfolio cards ── */
+  .port-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-bottom:8px;}
+  @media(min-width:600px){.port-grid{grid-template-columns:repeat(3,1fr);}}
+  @media(min-width:900px){.port-grid{grid-template-columns:repeat(4,1fr);}}
+  .port-card{background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow);
+    padding:16px 12px; text-align:center; border-top:4px solid var(--green);}
+  .port-sym  {font-size:1rem; font-weight:800; margin-bottom:4px;}
+  .port-price{font-size:1.5rem; font-weight:800; margin:6px 0;}
+  .port-chg  {font-size:1rem; font-weight:700; margin-bottom:10px;}
+  .port-row  {font-size:.75rem; color:var(--muted); margin:3px 0;}
+  .port-row b{color:var(--text);}  .port-signal{display:inline-block; margin-top:10px; padding:5px 14px;
+    border-radius:20px; font-size:.78rem; font-weight:700; color:#fff;}
+  .port-signal.sell{background:#c0392b;}
+  .port-signal.consider{background:#e67e22;}
+  .port-signal.watch{background:#f39c12; color:#333;}
+  .port-signal.hold{background:#7f8c8d;}
+  .port-signal.keep{background:#1a6b3c;}
+  .port-reason{font-size:.7rem; color:var(--muted); margin-top:6px; line-height:1.4; font-style:italic;}
+  /* ── Footer ── */
+  footer{text-align:center; color:var(--muted); font-size:.75rem; margin-top:32px;}
+  footer a{color:var(--green); text-decoration:none;}
+  .update-btn{display:inline-block; margin-top:10px;
+    background:var(--green); color:#fff; border:none; border-radius:20px;
+    padding:8px 22px; font-size:.85rem; cursor:pointer; text-decoration:none;}
+</style>
+</head>
+<body>
+
+<header>
+  <img src="https://ngxgroup.com/wp-content/uploads/2019/11/Nigerian-Exchange-Group-Logo-1.png" alt="NGX"/>
+  <h1>NGX Equities Tracker</h1>
+  <p>Nigerian Exchange — Live Market Intelligence</p>
+  <div class="badge">🕐 Updated: 20 Feb 2026, 02:48 WAT</div>
+</header>
+
+<div class="container">
+
+  <!-- KPIs -->
+  <div class="section-title">Market Overview</div>
+  <div class="kpi-grid">
+    <div class="kpi"><div class="val">148</div><div class="lbl">Total Stocks</div></div>
+    <div class="kpi green"><div class="val">52</div><div class="lbl">Advancing ▲</div></div>
+    <div class="kpi red">  <div class="val">26</div><div class="lbl">Declining ▼</div></div>
+    <div class="kpi">      <div class="val">70</div><div class="lbl">Unchanged —</div></div>
+    <div class="kpi green"><div class="val">+0.62%</div><div class="lbl">Avg Change</div></div>
+    <div class="kpi gold"> <div class="val">2</div><div class="lbl">Snapshots</div></div>
+  </div>
+
+  <!-- Gainers & Losers -->
+  <div class="two-col" style="margin-top:24px;">
+
+    <!-- Gainers -->
+    <div class="card">
+      <div class="card-header green">🟢 Top 10 Gainers</div>
+      <div class="card-body">
+        <canvas id="gainChart"></canvas>
+        <table style="margin-top:12px;">
+          <thead><tr>
+            <th>Symbol</th><th>Prev ₦</th><th>Close ₦</th><th>Change</th><th>% Chg</th>
+          </tr></thead>
+          <tbody id="gainBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Losers -->
+    <div class="card">
+      <div class="card-header red">🔴 Top 10 Losers</div>
+      <div class="card-body">
+        <canvas id="lossChart"></canvas>
+        <table style="margin-top:12px;">
+          <thead><tr>
+            <th>Symbol</th><th>Prev ₦</th><th>Close ₦</th><th>Change</th><th>% Chg</th>
+          </tr></thead>
+          <tbody id="lossBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- My Portfolio -->
+  <div class="section-title">📊 My Portfolio</div>
+  <div class="port-grid" id="portGrid"></div>
+
+  <!-- Recommendations -->
+  <div class="section-title">💡 Buy Recommendations</div>
+  <p style="font-size:.8rem;color:var(--muted);margin-bottom:12px;">Trend analysis based on 2 hourly snapshot(s). More snapshots improve signal accuracy.</p>
+  <div class="rec-grid" id="recGrid"></div>
+
+  <div style="font-size:.75rem;color:var(--muted);margin-top:14px;line-height:1.7;">
+    <b>Score guide:</b> STRONG BUY ≥30 pts &nbsp;|&nbsp; BUY ≥15 pts &nbsp;|&nbsp; WATCH ≥5 pts<br/>
+    <b>Factors:</b> Price momentum (40%) · Trend consistency (20%) · Volume confirmation (10%) · Recent momentum (30%); −15 pts for 3 consecutive down-sessions
+  </div>
+
+</div>
+
+<footer>
+  <p>Data sourced from <a href="https://ngxgroup.com/exchange/data/equities-price-list/" target="_blank">ngxgroup.com</a> · Prices delayed ~30 min</p>
+  <p style="margin-top:4px;">Auto-refreshed hourly via GitHub Actions</p>
+</footer>
+
+<script>
+const GAINERS    = [{"Company": "FTGINSURE [DWL]", "Prev_Close": 0.5, "Close": 0.55, "Change": 0.05, "Pct_Change": 10.0, "Volume": 1111000, "Value": 611050.0}, {"Company": "DEAPCAP [DWL]", "Prev_Close": 6.3, "Close": 6.93, "Change": 0.63, "Pct_Change": 10.0, "Volume": 9834104, "Value": 67747109.57}, {"Company": "OKOMUOIL", "Prev_Close": 1327.0, "Close": 1459.7, "Change": 132.7, "Pct_Change": 10.0, "Volume": 184045, "Value": 268650486.5}, {"Company": "INFINITY [BLS]", "Prev_Close": 13.05, "Close": 14.35, "Change": 1.3, "Pct_Change": 9.96, "Volume": 1318468, "Value": 18920015.8}, {"Company": "ZICHIS", "Prev_Close": 14.36, "Close": 15.79, "Change": 1.43, "Pct_Change": 9.96, "Volume": 2636113, "Value": 41624224.27}, {"Company": "JAPAULGOLD", "Prev_Close": 3.33, "Close": 3.66, "Change": 0.33, "Pct_Change": 9.91, "Volume": 80122476, "Value": 293248262.16}, {"Company": "MBENEFIT", "Prev_Close": 4.49, "Close": 4.93, "Change": 0.44, "Pct_Change": 9.8, "Volume": 58677533, "Value": 277558947.28}, {"Company": "SKYAVN", "Prev_Close": 128.7, "Close": 140.95, "Change": 12.25, "Pct_Change": 9.52, "Volume": 830060, "Value": 113168168.1}, {"Company": "STANBIC", "Prev_Close": 117.7, "Close": 128.9, "Change": 11.2, "Pct_Change": 9.52, "Volume": 981374, "Value": 123318727.35}, {"Company": "CUSTODIAN", "Prev_Close": 58.4, "Close": 63.9, "Change": 5.5, "Pct_Change": 9.42, "Volume": 1529620, "Value": 92824550.8}];
+const LOSERS     = [{"Company": "MULTIVERSE", "Prev_Close": 28.0, "Close": 25.2, "Change": -2.8, "Pct_Change": -10.0, "Volume": 647042, "Value": 16305526.35}, {"Company": "NSLTECH", "Prev_Close": 2.0, "Close": 1.8, "Change": -0.2, "Pct_Change": -10.0, "Volume": 71773998, "Value": 136486557.83}, {"Company": "MCNICHOLS", "Prev_Close": 9.2, "Close": 8.28, "Change": -0.92, "Pct_Change": -10.0, "Volume": 5232970, "Value": 47132725.83}, {"Company": "TRIPPLEG", "Prev_Close": 6.0, "Close": 5.4, "Change": -0.6, "Pct_Change": -10.0, "Volume": 637949, "Value": 3462254.48}, {"Company": "MEYER", "Prev_Close": 22.95, "Close": 20.7, "Change": -2.25, "Pct_Change": -9.8, "Volume": 533428, "Value": 11613284.15}, {"Company": "JOHNHOLT", "Prev_Close": 10.6, "Close": 9.6, "Change": -1.0, "Pct_Change": -9.43, "Volume": 606061, "Value": 6045672.1}, {"Company": "OMATEK", "Prev_Close": 3.24, "Close": 2.95, "Change": -0.29, "Pct_Change": -8.95, "Volume": 4201734, "Value": 12702667.15}, {"Company": "MANSARD", "Prev_Close": 17.05, "Close": 15.7, "Change": -1.35, "Pct_Change": -7.92, "Volume": 4294459, "Value": 72589428.44}, {"Company": "FTNCOCOA [RST]", "Prev_Close": 6.35, "Close": 5.85, "Change": -0.5, "Pct_Change": -7.87, "Volume": 5860391, "Value": 36014704.97}, {"Company": "CADBURY", "Prev_Close": 70.5, "Close": 66.0, "Change": -4.5, "Pct_Change": -6.38, "Volume": 1475409, "Value": 99081190.1}];
+const RECS       = [{"Company": "ABBEYBDS", "Score": 20.0, "momentum_%": 0.0, "consistency": 1.0, "volume_trend_%": 0.0, "total_score": 20.0, "Close": 11.4, "Pct_Change": 5.56, "Volume": 3062423, "Recommendation": "BUY"}, {"Company": "ABCTRANS", "Score": 20.0, "momentum_%": 0.0, "consistency": 1.0, "volume_trend_%": 0.0, "total_score": 20.0, "Close": 9.5, "Pct_Change": 1.06, "Volume": 3744524, "Recommendation": "BUY"}, {"Company": "ACCESSCORP", "Score": 20.0, "momentum_%": 0.0, "consistency": 1.0, "volume_trend_%": 0.0, "total_score": 20.0, "Close": 26.0, "Pct_Change": 4.0, "Volume": 51888001, "Recommendation": "BUY"}, {"Company": "AFRIPRUD", "Score": 20.0, "momentum_%": 0.0, "consistency": 1.0, "volume_trend_%": 0.0, "total_score": 20.0, "Close": 15.95, "Pct_Change": 0.95, "Volume": 4079427, "Recommendation": "BUY"}, {"Company": "CAVERTON", "Score": 20.0, "momentum_%": 0.0, "consistency": 1.0, "volume_trend_%": 0.0, "total_score": 20.0, "Close": 7.3, "Pct_Change": 1.39, "Volume": 1655997, "Recommendation": "BUY"}];
+const PORTFOLIO  = [{"Company": "AFRIPRUD", "Prev_Close": 15.8, "Opening_Price": 15.8, "High": 16.3, "Low": 15.95, "Close": 15.95, "Change": 0.15, "Trades": 258, "Volume": 4079427, "Value": 65848809.2, "Trade_Date": "19 Feb 26", "Pct_Change": 0.95, "Fetched_At": 1771554412000}, {"Company": "UNIVINSURE", "Prev_Close": 1.47, "Opening_Price": 1.47, "High": 1.5, "Low": 1.4, "Close": 1.44, "Change": -0.03, "Trades": 249, "Volume": 19647033, "Value": 28220381.4, "Trade_Date": "19 Feb 26", "Pct_Change": -2.04, "Fetched_At": 1771554412000}, {"Company": "CUTIX", "Prev_Close": 4.0, "Opening_Price": 4.0, "High": 4.1, "Low": 3.82, "Close": 4.0, "Change": 0.0, "Trades": 479, "Volume": 6927223, "Value": 27506758.95, "Trade_Date": "19 Feb 26", "Pct_Change": 0.0, "Fetched_At": 1771554412000}, {"Company": "SOVRENINS [MRF]", "Prev_Close": 2.56, "Opening_Price": 2.56, "High": 2.79, "Low": 2.33, "Close": 2.57, "Change": 0.01, "Trades": 276, "Volume": 19182306, "Value": 48006839.26, "Trade_Date": "19 Feb 26", "Pct_Change": 0.39, "Fetched_At": 1771554412000}];
+const PORT_MISS    = [];
+const PORT_SIGNALS = {"AFRIPRUD": {"signal": "HOLD", "reason": "Mixed signals over 2 sessions — no clear direction", "net_change_pct": 0.0, "recent_avg_pct": 0.95, "consec_down": 0, "sessions": 2, "week_change_pct": 0.0, "three_day_change_pct": 0.0}, "UNIVINSURE": {"signal": "HOLD", "reason": "Mixed signals over 2 sessions — no clear direction", "net_change_pct": 0.0, "recent_avg_pct": -2.04, "consec_down": 2, "sessions": 2, "week_change_pct": 0.0, "three_day_change_pct": 0.0}, "CUTIX": {"signal": "HOLD", "reason": "Mixed signals over 2 sessions — no clear direction", "net_change_pct": 0.0, "recent_avg_pct": 0.0, "consec_down": 0, "sessions": 2, "week_change_pct": 0.0, "three_day_change_pct": 0.0}, "SOVRENINS [MRF]": {"signal": "HOLD", "reason": "Mixed signals over 2 sessions — no clear direction", "net_change_pct": 0.0, "recent_avg_pct": 0.39, "consec_down": 0, "sessions": 2, "week_change_pct": 0.0, "three_day_change_pct": 0.0}};
+
+// ── Gainers table & chart ──
+const gainBody = document.getElementById('gainBody');
+GAINERS.forEach((r,i) => {
+  gainBody.innerHTML += `<tr>
+    <td>${r.Company}</td>
+    <td>${r.Prev_Close?.toFixed(2) ?? '-'}</td>
+    <td>${r.Close?.toFixed(2) ?? '-'}</td>
+    <td class="up">+${r.Change?.toFixed(2) ?? '0'}</td>
+    <td class="up">+${r.Pct_Change?.toFixed(2) ?? '0'}%</td>
+  </tr>`;
+});
+
+new Chart(document.getElementById('gainChart'), {
+  type:'bar',
+  data:{
+    labels: GAINERS.map(r=>r.Company),
+    datasets:[{
+      data: GAINERS.map(r=>r.Pct_Change),
+      backgroundColor:'rgba(26,107,60,0.75)',
+      borderRadius:5,
+    }]
+  },
+  options:{
+    plugins:{legend:{display:false}},
+    scales:{
+      y:{title:{display:true,text:'% Change'}},
+      x:{ticks:{maxRotation:45,font:{size:10}}}
+    },
+    responsive:true,
+    maintainAspectRatio:true,
+  }
+});
+
+// ── Losers table & chart ──
+const lossBody = document.getElementById('lossBody');
+LOSERS.forEach(r => {
+  lossBody.innerHTML += `<tr>
+    <td>${r.Company}</td>
+    <td>${r.Prev_Close?.toFixed(2) ?? '-'}</td>
+    <td>${r.Close?.toFixed(2) ?? '-'}</td>
+    <td class="dn">${r.Change?.toFixed(2) ?? '0'}</td>
+    <td class="dn">${r.Pct_Change?.toFixed(2) ?? '0'}%</td>
+  </tr>`;
+});
+
+new Chart(document.getElementById('lossChart'), {
+  type:'bar',
+  data:{
+    labels: LOSERS.map(r=>r.Company),
+    datasets:[{
+      data: LOSERS.map(r=>r.Pct_Change),
+      backgroundColor:'rgba(192,57,43,0.75)',
+      borderRadius:5,
+    }]
+  },
+  options:{
+    plugins:{legend:{display:false}},
+    scales:{
+      y:{title:{display:true,text:'% Change'}},
+      x:{ticks:{maxRotation:45,font:{size:10}}}
+    },
+    responsive:true,
+    maintainAspectRatio:true,
+  }
+});
+
+// ── My Portfolio cards ──
+const portGrid = document.getElementById('portGrid');
+if (PORTFOLIO.length === 0 && PORT_MISS.length > 0) {
+  portGrid.innerHTML = "<p style='color:var(--muted);font-size:.85rem;'>No portfolio stocks found in today&apos;s data.</p>";
+} else {
+  PORTFOLIO.forEach(r => {
+    const pct  = r.Pct_Change ?? 0;
+    const sign = pct >= 0 ? '+' : '';
+    const cls  = pct > 0 ? 'up' : pct < 0 ? 'dn' : 'neu';
+    const borderCol = pct > 0 ? 'var(--green)' : pct < 0 ? 'var(--red)' : 'var(--muted)';
+    const sig  = PORT_SIGNALS[r.Company] || {};
+    const sigText = sig.signal || 'HOLD';
+    const sigReason = sig.reason || '';
+    const sigCls = sigText === 'SELL' ? 'sell'
+                 : sigText === 'CONSIDER SELLING' ? 'consider'
+                 : sigText === 'WATCH CLOSELY' ? 'watch'
+                 : sigText === 'KEEP' ? 'keep' : 'hold';
+    const sessions = sig.sessions ? sig.sessions + ' sessions' : 'today only';
+    const netChg   = sig.net_change_pct != null ? (sig.net_change_pct >= 0 ? '+' : '') + sig.net_change_pct.toFixed(2) + '%' : '—';
+    portGrid.innerHTML += `
+      <div class="port-card" style="border-top-color:${borderCol}">
+        <div class="port-sym">${r.Company}</div>
+        <div class="port-price ${cls}">&#8358;${r.Close?.toFixed(2) ?? '—'}</div>
+        <div class="port-chg ${cls}">${sign}${pct.toFixed(2)}% today</div>
+        <div class="port-row">Prev Close: <b>&#8358;${r.Prev_Close?.toFixed(2) ?? '—'}</b></div>
+        <div class="port-row">High / Low: <b>&#8358;${r.High?.toFixed(2) ?? '—'} / &#8358;${r.Low?.toFixed(2) ?? '—'}</b></div>
+        <div class="port-row">Vol: <b>${r.Volume ? r.Volume.toLocaleString() : '—'}</b> &nbsp; Trades: <b>${r.Trades ?? '—'}</b></div>
+        <div class="port-row">Trend (${sessions}): <b>${netChg}</b></div>
+        <div><span class="port-signal ${sigCls}">${sigText}</span></div>
+        <div class="port-reason">${sigReason}</div>
+      </div>`;
+  });
+  PORT_MISS.forEach(name => {
+    portGrid.innerHTML += `
+      <div class="port-card" style="border-top-color:var(--muted);opacity:.55">
+        <div class="port-sym">${name}</div>
+        <div style="font-size:.8rem;color:var(--muted);margin-top:10px;">Not found in today&apos;s data</div>
+      </div>`;
+  });
+}
+
+// ── Recommendation cards ──
+const recGrid = document.getElementById('recGrid');
+RECS.forEach(r => {
+  const signal   = r.Recommendation || 'WATCH';
+  const isBuy    = signal.includes('BUY');
+  const pct      = r.Pct_Change ?? 0;
+  const mom      = r['momentum_%'] ?? pct;
+  const cons     = r.consistency != null ? (r.consistency*100).toFixed(0)+'%' : '—';
+  const score    = r.Score?.toFixed(1) ?? '—';
+  const vol      = r.Volume ? r.Volume.toLocaleString() : '—';
+  const sign     = pct >= 0 ? '+' : '';
+  const priceClass = pct >= 0 ? '' : 'dn';
+  const watchClass = isBuy   ? '' : 'watch';
+  const sigClass   = isBuy   ? '' : 'watch';
+
+  recGrid.innerHTML += `
+  <div class="rec-card ${watchClass}">
+    <div class="rec-sym">${r.Company}</div>
+    <div class="rec-price ${priceClass}">₦${r.Close?.toFixed(2) ?? '—'}</div>
+    <div class="rec-pct ${pct>=0?'up':'dn'}">${sign}${pct.toFixed(2)}%</div>
+    <div class="rec-row">Score: <b>${score}</b></div>
+    <div class="rec-row">Momentum: <b>${mom>=0?'+':''}${typeof mom==='number'?mom.toFixed(1):'—'}%</b></div>
+    <div class="rec-row">Consistency: <b>${cons}</b></div>
+    <div class="rec-row">Volume: <b>${vol}</b></div>
+    <div><span class="signal ${sigClass}">${signal}</span></div>
+  </div>`;
+});
+</script>
+</body>
+</html>
