@@ -1,10 +1,10 @@
-"""
+﻿"""
 generate_html.py
 Fetches NGX equities data and writes a self-contained index.html
 suitable for GitHub Pages hosting.
 
 Usage:
-    python generate_html.py          # fetch live data → docs/index.html
+    python generate_html.py          # fetch live data â†’ docs/index.html
     python generate_html.py --cached # use latest saved snapshot (no browser)
 """
 
@@ -30,11 +30,10 @@ from analyzer import (
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger(__name__)
 
-DOCS_DIR = Path("docs")
-DOCS_DIR.mkdir(exist_ok=True)
+DOCS_DIR = Path(".")
 OUTPUT = DOCS_DIR / "index.html"
 
-# ── My Portfolio ─────────────────────────────────────────────────────────────
+# â”€â”€ My Portfolio â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 # Add or remove tickers/company names here to personalise your watchlist.
 PORTFOLIO_STOCKS = [
     "AFRIPRUD",       # African Prudential
@@ -44,7 +43,7 @@ PORTFOLIO_STOCKS = [
 ]
 
 
-# ── Data helpers ──────────────────────────────────────────────────────────────
+# â”€â”€ Data helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 def to_records(df: pd.DataFrame) -> list:
     return json.loads(df.to_json(orient="records"))
@@ -70,7 +69,7 @@ def load_data(use_cache: bool) -> pd.DataFrame:
         if snaps:
             logger.info("Using cached snapshot.")
             return snaps[-1]
-        logger.warning("No cached snapshot found — fetching live data.")
+        logger.warning("No cached snapshot found â€” fetching live data.")
 
     from scraper import get_equities_data
     df = get_equities_data()
@@ -79,199 +78,327 @@ def load_data(use_cache: bool) -> pd.DataFrame:
     return df
 
 
-# ── HTML template ─────────────────────────────────────────────────────────────
+# â”€â”€ HTML template â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 HTML_TEMPLATE = """<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
 <title>NGX Equities Tracker</title>
 <link rel="icon" href="https://ngxgroup.com/wp-content/uploads/2019/11/Nigerian-Exchange-Group-Logo-1.png"/>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
   :root{{
     --green:#1a6b3c; --green-light:#e8f5ee; --red:#c0392b; --red-light:#fdf2f2;
-    --gold:#f39c12; --bg:#f4f6f8; --card:#fff; --text:#1a1a2e; --muted:#6c757d;
-    --radius:12px; --shadow:0 2px 12px rgba(0,0,0,.08);
+    --gold:#f39c12; --gold-light:#fef9ec; --bg:#f0f2f5; --card:#fff;
+    --text:#1a1a2e; --muted:#6c757d; --border:#e8eaed;
+    --radius:14px; --shadow:0 2px 16px rgba(0,0,0,.07);
+    --header-h:60px; --nav-h:56px;
   }}
   *{{box-sizing:border-box; margin:0; padding:0;}}
-  body{{font-family:'Segoe UI',system-ui,sans-serif; background:var(--bg); color:var(--text); padding-bottom:40px;}}
+  html{{scroll-behavior:smooth;}}
+  body{{
+    font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+    background:var(--bg); color:var(--text);
+    padding-top:var(--header-h);
+    padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom, 0px));
+  }}
 
-  /* ── Header ── */
-  header{{background:linear-gradient(135deg,#1a3a2a 0%,#1a6b3c 100%);
-    color:#fff; padding:20px 16px 16px; text-align:center;}}
-  header img{{height:38px; margin-bottom:8px;}}
-  header h1{{font-size:1.5rem; font-weight:700; letter-spacing:-.5px;}}
-  header p{{font-size:.82rem; opacity:.8; margin-top:4px;}}
-  .badge{{display:inline-block; background:rgba(255,255,255,.18);
-    border-radius:20px; padding:3px 12px; font-size:.78rem; margin-top:8px;}}
+  /* â”€â”€ Sticky header â”€â”€ */
+  .top-bar{{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    height:var(--header-h);
+    background:linear-gradient(135deg,#1a3a2a 0%,#1a6b3c 100%);
+    color:#fff; display:flex; align-items:center;
+    padding:0 16px; gap:10px;
+    box-shadow:0 2px 12px rgba(0,0,0,.25);
+  }}
+  .top-bar img{{height:30px; flex-shrink:0;}}
+  .top-bar-text{{flex:1; min-width:0;}}
+  .top-bar-text h1{{font-size:1rem; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}}
+  .top-bar-text p{{font-size:.7rem; opacity:.75; margin-top:1px;}}
+  .top-bar-badge{{
+    background:rgba(255,255,255,.18); border-radius:20px;
+    padding:4px 10px; font-size:.68rem; white-space:nowrap; flex-shrink:0;
+  }}
 
-  /* ── Layout ── */
-  .container{{max-width:1100px; margin:0 auto; padding:16px;}}
-  .section-title{{font-size:1.1rem; font-weight:700; color:var(--text);
-    margin:24px 0 12px; padding-left:10px;
-    border-left:4px solid var(--green);}}
+  /* â”€â”€ Bottom nav â”€â”€ */
+  .bottom-nav{{
+    position:fixed; bottom:0; left:0; right:0; z-index:100;
+    height:var(--nav-h);
+    background:#fff; border-top:1px solid var(--border);
+    display:flex; align-items:stretch;
+    padding-bottom:env(safe-area-inset-bottom, 0px);
+    box-shadow:0 -2px 12px rgba(0,0,0,.08);
+  }}
+  .bottom-nav a{{
+    flex:1; display:flex; flex-direction:column; align-items:center;
+    justify-content:center; text-decoration:none; color:var(--muted);
+    font-size:.62rem; font-weight:600; letter-spacing:.3px; gap:3px;
+    transition:color .15s;
+    -webkit-tap-highlight-color:transparent;
+  }}
+  .bottom-nav a:active{{color:var(--green); background:var(--green-light);}}
+  .bottom-nav a span.icon{{font-size:1.25rem; line-height:1;}}
 
-  /* ── KPI row ── */
-  .kpi-grid{{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:4px;}}
+  /* â”€â”€ Layout â”€â”€ */
+  .container{{max-width:1100px; margin:0 auto; padding:12px 12px 0;}}
+
+  /* â”€â”€ Section title â”€â”€ */
+  .section-title{{
+    font-size:1rem; font-weight:700; color:var(--text);
+    margin:20px 0 10px; padding:10px 12px;
+    border-left:4px solid var(--green);
+    background:var(--card); border-radius:0 var(--radius) var(--radius) 0;
+    box-shadow:var(--shadow);
+  }}
+
+  /* â”€â”€ KPI row â”€â”€ */
+  .kpi-grid{{display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:4px;}}
   @media(min-width:600px){{.kpi-grid{{grid-template-columns:repeat(6,1fr);}}}}
-  .kpi{{background:var(--card); border-radius:var(--radius); padding:14px 8px;
-    text-align:center; box-shadow:var(--shadow);}}
-  .kpi .val{{font-size:1.4rem; font-weight:800; line-height:1;}}
-  .kpi .lbl{{font-size:.7rem; color:var(--muted); margin-top:4px; text-transform:uppercase; letter-spacing:.5px;}}
+  .kpi{{
+    background:var(--card); border-radius:var(--radius); padding:12px 6px;
+    text-align:center; box-shadow:var(--shadow);
+  }}
+  .kpi .val{{font-size:1.3rem; font-weight:800; line-height:1;}}
+  .kpi .lbl{{font-size:.62rem; color:var(--muted); margin-top:4px;
+    text-transform:uppercase; letter-spacing:.4px; line-height:1.2;}}
   .kpi.green .val{{color:var(--green);}}
   .kpi.red   .val{{color:var(--red);}}
   .kpi.gold  .val{{color:var(--gold);}}
 
-  /* ── Two-column grid ── */
-  .two-col{{display:grid; grid-template-columns:1fr; gap:16px;}}
+  /* -- Tooltip -- */
+  .kpi[data-tip]{{position:relative; cursor:help;}}
+  .kpi[data-tip]::after{{
+    content:attr(data-tip);
+    position:absolute; bottom:calc(100% + 7px); left:50%; transform:translateX(-50%);
+    background:rgba(30,30,30,.92); color:#fff; font-size:.66rem; font-weight:400;
+    padding:7px 10px; border-radius:7px; white-space:normal; max-width:170px;
+    text-align:center; line-height:1.45; z-index:100; pointer-events:none;
+    opacity:0; transition:opacity .18s; box-shadow:0 2px 10px rgba(0,0,0,.25);
+    letter-spacing:0; text-transform:none;
+  }}
+  .kpi[data-tip]:hover::after,
+  .kpi[data-tip].tip-open::after{{opacity:1;}}
+
+  /* â”€â”€ Two-column grid â”€â”€ */
+  .two-col{{display:grid; grid-template-columns:1fr; gap:12px;}}
   @media(min-width:768px){{.two-col{{grid-template-columns:1fr 1fr;}}}}
 
-  /* ── Card ── */
-  .card{{background:var(--card); border-radius:var(--radius);
-    box-shadow:var(--shadow); overflow:hidden;}}
-  .card-header{{padding:12px 16px; font-weight:700; font-size:.95rem;
-    display:flex; align-items:center; gap:8px;}}
+  /* â”€â”€ Card â”€â”€ */
+  .card{{background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden;}}
+  .card-header{{
+    padding:12px 14px; font-weight:700; font-size:.9rem;
+    display:flex; align-items:center; gap:8px;
+  }}
   .card-header.green{{background:var(--green-light); color:var(--green);}}
   .card-header.red  {{background:var(--red-light);   color:var(--red);}}
-  .card-body{{padding:12px 16px;}}
-  canvas{{max-height:220px;}}
+  .card-body{{padding:10px 12px;}}
+  canvas{{max-height:200px; width:100% !important;}}
 
-  /* ── Table ── */
-  table{{width:100%; border-collapse:collapse; font-size:.82rem;}}
-  th{{background:#f1f3f5; color:var(--muted); font-weight:600;
-    text-align:right; padding:7px 10px; font-size:.72rem; text-transform:uppercase;}}
+  /* â”€â”€ Scrollable table wrapper â”€â”€ */
+  .table-wrap{{overflow-x:auto; -webkit-overflow-scrolling:touch; margin-top:10px;}}
+  table{{width:100%; border-collapse:collapse; font-size:.8rem; min-width:300px;}}
+  th{{
+    background:#f1f3f5; color:var(--muted); font-weight:600; white-space:nowrap;
+    text-align:right; padding:8px 10px; font-size:.68rem; text-transform:uppercase;
+    position:sticky; top:0;
+  }}
   th:first-child{{text-align:left;}}
-  td{{padding:7px 10px; border-bottom:1px solid #f0f0f0; text-align:right;}}
-  td:first-child{{text-align:left; font-weight:600;}}
+  td{{padding:8px 10px; border-bottom:1px solid #f0f0f0; text-align:right; white-space:nowrap;}}
+  td:first-child{{text-align:left; font-weight:700; max-width:120px; overflow:hidden; text-overflow:ellipsis;}}
   tr:last-child td{{border-bottom:none;}}
-  .up  {{color:var(--green); font-weight:700;}}
-  .dn  {{color:var(--red);   font-weight:700;}}
-  .neu {{color:var(--muted);}}
+  tr:active td{{background:#f8f9fa;}}
+  .up {{color:var(--green); font-weight:700;}}
+  .dn {{color:var(--red);   font-weight:700;}}
+  .neu{{color:var(--muted);}}
 
-  /* ── Rec cards ── */
-  .rec-grid{{display:grid; grid-template-columns:repeat(2,1fr); gap:12px;}}
+  /* â”€â”€ Hide less important table cols on small screens â”€â”€ */
+  @media(max-width:480px){{
+    .hide-mobile{{display:none;}}
+  }}
+
+  /* -- Collapsible card -- */
+  .card-header{{cursor:pointer; user-select:none; -webkit-tap-highlight-color:transparent;}}
+  .card-header .arrow{{margin-left:auto; font-size:.85rem; transition:transform .25s; display:inline-block;}}
+  .card-body.collapsed{{display:none;}}
+
+  /* â”€â”€ Portfolio cards â”€â”€ */
+  .port-grid{{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:8px;}}
+  @media(min-width:540px){{.port-grid{{grid-template-columns:repeat(3,1fr);}}}}
+  @media(min-width:900px){{.port-grid{{grid-template-columns:repeat(4,1fr);}}}}
+  .port-card{{
+    background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow);
+    padding:14px 10px; text-align:center; border-top:4px solid var(--green);
+  }}
+  .port-sym  {{font-size:.9rem; font-weight:800; margin-bottom:2px; word-break:break-all;}}
+  .port-price{{font-size:1.4rem; font-weight:800; margin:5px 0;}}
+  .port-chg  {{font-size:.85rem; font-weight:700; margin-bottom:8px;}}
+  .port-row  {{font-size:.7rem; color:var(--muted); margin:3px 0; line-height:1.3;}}
+  .port-row b{{color:var(--text);}}
+  .port-signal{{
+    display:inline-block; margin-top:8px; padding:5px 12px;
+    border-radius:20px; font-size:.72rem; font-weight:700; color:#fff;
+  }}
+  .port-signal.sell   {{background:#c0392b;}}
+  .port-signal.consider{{background:#e67e22;}}
+  .port-signal.watch  {{background:#f39c12; color:#333;}}
+  .port-signal.hold   {{background:#7f8c8d;}}
+  .port-signal.keep   {{background:#1a6b3c;}}
+  .port-reason{{font-size:.65rem; color:var(--muted); margin-top:5px; line-height:1.4; font-style:italic;}}
+
+  /* â”€â”€ Rec cards â”€â”€ */
+  .rec-grid{{display:grid; grid-template-columns:1fr 1fr; gap:10px;}}
   @media(min-width:600px){{.rec-grid{{grid-template-columns:repeat(3,1fr);}}}}
   @media(min-width:900px){{.rec-grid{{grid-template-columns:repeat(5,1fr);}}}}
-  .rec-card{{background:var(--card); border-radius:var(--radius);
-    box-shadow:var(--shadow); padding:16px 12px; text-align:center;
-    border-top:4px solid var(--green);}}
+  .rec-card{{
+    background:var(--card); border-radius:var(--radius);
+    box-shadow:var(--shadow); padding:14px 10px; text-align:center;
+    border-top:4px solid var(--green);
+  }}
   .rec-card.watch{{border-top-color:var(--gold);}}
-  .rec-sym  {{font-size:1rem; font-weight:800; margin-bottom:4px;}}
-  .rec-price{{font-size:1.5rem; font-weight:800; color:var(--green); margin:4px 0;}}
+  .rec-sym  {{font-size:.9rem; font-weight:800; margin-bottom:4px; word-break:break-all;}}
+  .rec-price{{font-size:1.3rem; font-weight:800; color:var(--green); margin:4px 0;}}
   .rec-price.dn{{color:var(--red);}}
-  .rec-pct  {{font-size:.9rem; margin-bottom:8px;}}
-  .rec-row  {{font-size:.75rem; color:var(--muted); margin:3px 0;}}
+  .rec-pct  {{font-size:.85rem; margin-bottom:6px;}}
+  .rec-row  {{font-size:.7rem; color:var(--muted); margin:3px 0;}}
   .rec-row b{{color:var(--text);}}
-  .signal{{display:inline-block; margin-top:10px; padding:4px 14px;
-    border-radius:20px; font-size:.75rem; font-weight:700;
-    background:var(--green); color:#fff;}}
-  .signal.watch{{background:var(--gold);}}
+  .signal{{
+    display:inline-block; margin-top:8px; padding:4px 12px;
+    border-radius:20px; font-size:.72rem; font-weight:700;
+    background:var(--green); color:#fff;
+  }}
+  .signal.watch{{background:var(--gold); color:#333;}}
 
-  /* ── Portfolio cards ── */
-  .port-grid{{display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-bottom:8px;}}
-  @media(min-width:600px){{.port-grid{{grid-template-columns:repeat(3,1fr);}}}}
-  @media(min-width:900px){{.port-grid{{grid-template-columns:repeat(4,1fr);}}}}
-  .port-card{{background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow);
-    padding:16px 12px; text-align:center; border-top:4px solid var(--green);}}
-  .port-sym  {{font-size:1rem; font-weight:800; margin-bottom:4px;}}
-  .port-price{{font-size:1.5rem; font-weight:800; margin:6px 0;}}
-  .port-chg  {{font-size:1rem; font-weight:700; margin-bottom:10px;}}
-  .port-row  {{font-size:.75rem; color:var(--muted); margin:3px 0;}}
-  .port-row b{{color:var(--text);}}  .port-signal{{display:inline-block; margin-top:10px; padding:5px 14px;
-    border-radius:20px; font-size:.78rem; font-weight:700; color:#fff;}}
-  .port-signal.sell{{background:#c0392b;}}
-  .port-signal.consider{{background:#e67e22;}}
-  .port-signal.watch{{background:#f39c12; color:#333;}}
-  .port-signal.hold{{background:#7f8c8d;}}
-  .port-signal.keep{{background:#1a6b3c;}}
-  .port-reason{{font-size:.7rem; color:var(--muted); margin-top:6px; line-height:1.4; font-style:italic;}}
-  /* ── Footer ── */
-  footer{{text-align:center; color:var(--muted); font-size:.75rem; margin-top:32px;}}
+  /* â”€â”€ Score guide â”€â”€ */
+  .score-guide{{
+    font-size:.72rem; color:var(--muted); margin-top:12px;
+    background:var(--card); border-radius:var(--radius);
+    padding:10px 14px; box-shadow:var(--shadow); line-height:1.8;
+  }}
+
+  /* â”€â”€ Footer â”€â”€ */
+  footer{{
+    text-align:center; color:var(--muted); font-size:.72rem;
+    margin-top:24px; padding:16px;
+  }}
   footer a{{color:var(--green); text-decoration:none;}}
-  .update-btn{{display:inline-block; margin-top:10px;
-    background:var(--green); color:#fff; border:none; border-radius:20px;
-    padding:8px 22px; font-size:.85rem; cursor:pointer; text-decoration:none;}}
 </style>
 </head>
 <body>
 
-<header>
+<!-- Sticky top bar -->
+<div class="top-bar">
   <img src="https://ngxgroup.com/wp-content/uploads/2019/11/Nigerian-Exchange-Group-Logo-1.png" alt="NGX"/>
-  <h1>NGX Equities Tracker</h1>
-  <p>Nigerian Exchange — Live Market Intelligence</p>
-  <div class="badge">🕐 Updated: {updated}</div>
-</header>
+  <div class="top-bar-text">
+    <h1>NGX Equities Tracker</h1>
+    <p>Nigerian Exchange â€” Live Intelligence</p>
+  </div>
+  <div class="top-bar-badge">&#128336; {updated}</div>
+</div>
 
 <div class="container">
 
   <!-- KPIs -->
-  <div class="section-title">Market Overview</div>
-  <div class="kpi-grid">
-    <div class="kpi"><div class="val">{total}</div><div class="lbl">Total Stocks</div></div>
-    <div class="kpi green"><div class="val">{advancing}</div><div class="lbl">Advancing ▲</div></div>
-    <div class="kpi red">  <div class="val">{declining}</div><div class="lbl">Declining ▼</div></div>
-    <div class="kpi">      <div class="val">{unchanged}</div><div class="lbl">Unchanged —</div></div>
-    <div class="kpi {avg_color}"><div class="val">{avg_chg}</div><div class="lbl">Avg Change</div></div>
-    <div class="kpi gold"> <div class="val">{snapshots}</div><div class="lbl">Snapshots</div></div>
-  </div>
-
-  <!-- Gainers & Losers -->
-  <div class="two-col" style="margin-top:24px;">
-
-    <!-- Gainers -->
-    <div class="card">
-      <div class="card-header green">🟢 Top {top_n} Gainers</div>
-      <div class="card-body">
-        <canvas id="gainChart"></canvas>
-        <table style="margin-top:12px;">
-          <thead><tr>
-            <th>Symbol</th><th>Prev ₦</th><th>Close ₦</th><th>Change</th><th>% Chg</th>
-          </tr></thead>
-          <tbody id="gainBody"></tbody>
-        </table>
-      </div>
+  <div id="overview" style="scroll-margin-top:70px;">
+    <div class="section-title">&#128200; Market Overview</div>
+    <div class="kpi-grid">
+      <div class="kpi" data-tip="Total NGX equities tracked in today's session"><div class="val">{total}</div><div class="lbl">Total<br/>Stocks</div></div>
+      <div class="kpi green" data-tip="Stocks that closed HIGHER than their previous close"><div class="val">{advancing}</div><div class="lbl">Advancing<br/>&#9650;</div></div>
+      <div class="kpi red"   data-tip="Stocks that closed LOWER than their previous close"><div class="val">{declining}</div><div class="lbl">Declining<br/>&#9660;</div></div>
+      <div class="kpi"       data-tip="Stocks whose price did not move from the previous close"><div class="val">{unchanged}</div><div class="lbl">Unchanged<br/>&#8212;</div></div>
+      <div class="kpi {avg_color}" data-tip="Average % price change across all stocks today"><div class="val">{avg_chg}</div><div class="lbl">Avg<br/>Change</div></div>
+      <div class="kpi gold"  data-tip="Hourly snapshots used for trend signals (~1 per trading hour, max 168 = 7 days)"><div class="val">{snapshots}</div><div class="lbl">History<br/>Snaps</div></div>
     </div>
-
-    <!-- Losers -->
-    <div class="card">
-      <div class="card-header red">🔴 Top {top_n} Losers</div>
-      <div class="card-body">
-        <canvas id="lossChart"></canvas>
-        <table style="margin-top:12px;">
-          <thead><tr>
-            <th>Symbol</th><th>Prev ₦</th><th>Close ₦</th><th>Change</th><th>% Chg</th>
-          </tr></thead>
-          <tbody id="lossBody"></tbody>
-        </table>
-      </div>
-    </div>
-
   </div>
 
   <!-- My Portfolio -->
-  <div class="section-title">📊 My Portfolio</div>
-  <div class="port-grid" id="portGrid"></div>
+  <div id="portfolio" style="scroll-margin-top:70px;">
+    <div class="section-title">&#128202; My Portfolio</div>
+    <div class="port-grid" id="portGrid"></div>
+  </div>
+
+  <!-- Gainers & Losers -->
+  <div id="markets" style="scroll-margin-top:70px;">
+    <div class="section-title">&#128200; Top Movers</div>
+    <div class="two-col">
+
+      <div class="card">
+        <div class="card-header green" onclick="toggleCard('gainBody_wrap','gainArrow')">&#129001; Top {top_n} Gainers <span class="arrow" id="gainArrow">&#9660;</span></div>
+        <div class="card-body" id="gainBody_wrap">
+          <canvas id="gainChart"></canvas>
+          <div class="table-wrap">
+            <table>
+              <thead><tr>
+                <th>Symbol</th>
+                <th class="hide-mobile">Prev &#8358;</th>
+                <th>Close &#8358;</th>
+                <th class="hide-mobile">Chg</th>
+                <th>% Chg</th>
+              </tr></thead>
+              <tbody id="gainBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header red" onclick="toggleCard('lossBody_wrap','lossArrow')">&#128308; Top {top_n} Losers <span class="arrow" id="lossArrow">&#9660;</span></div>
+        <div class="card-body" id="lossBody_wrap">
+          <canvas id="lossChart"></canvas>
+          <div class="table-wrap">
+            <table>
+              <thead><tr>
+                <th>Symbol</th>
+                <th class="hide-mobile">Prev &#8358;</th>
+                <th>Close &#8358;</th>
+                <th class="hide-mobile">Chg</th>
+                <th>% Chg</th>
+              </tr></thead>
+              <tbody id="lossBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
 
   <!-- Recommendations -->
-  <div class="section-title">💡 Buy Recommendations</div>
-  <p style="font-size:.8rem;color:var(--muted);margin-bottom:12px;">{rec_note}</p>
-  <div class="rec-grid" id="recGrid"></div>
-
-  <div style="font-size:.75rem;color:var(--muted);margin-top:14px;line-height:1.7;">
-    <b>Score guide:</b> STRONG BUY ≥30 pts &nbsp;|&nbsp; BUY ≥15 pts &nbsp;|&nbsp; WATCH ≥5 pts<br/>
-    <b>Factors:</b> Price momentum (40%) · Trend consistency (20%) · Volume confirmation (10%) · Recent momentum (30%); −15 pts for 3 consecutive down-sessions
+  <div id="recs" style="scroll-margin-top:70px;">
+    <div class="section-title">&#128161; Buy Recommendations</div>
+    <p style="font-size:.75rem;color:var(--muted);margin-bottom:10px;padding:0 4px;">{rec_note}</p>
+    <div class="rec-grid" id="recGrid"></div>
+    <div class="score-guide">
+      <b>Signal guide:</b> STRONG BUY &#8805;30pts &nbsp;&#183;&nbsp; BUY &#8805;15pts &nbsp;&#183;&nbsp; WATCH &#8805;5pts<br/>
+      <b>Factors:</b> Momentum (40%) &middot; Consistency (20%) &middot; Volume (10%) &middot; Recent trend (30%); &minus;15pts for 3 down-sessions in a row
+    </div>
   </div>
 
 </div>
 
 <footer>
-  <p>Data sourced from <a href="https://ngxgroup.com/exchange/data/equities-price-list/" target="_blank">ngxgroup.com</a> · Prices delayed ~30 min</p>
+  <p>Data from <a href="https://ngxgroup.com/exchange/data/equities-price-list/" target="_blank">ngxgroup.com</a> &middot; Prices delayed ~30 min</p>
   <p style="margin-top:4px;">Auto-refreshed hourly via GitHub Actions</p>
 </footer>
 
+<!-- Bottom nav -->
+<nav class="bottom-nav">
+  <a href="#overview"><span class="icon">&#128200;</span>Overview</a>
+  <a href="#portfolio"><span class="icon">&#128202;</span>Portfolio</a>
+  <a href="#markets"><span class="icon">&#128308;</span>Movers</a>
+  <a href="#recs"><span class="icon">&#128161;</span>Picks</a>
+</nav>
+
 <script>
+function toggleCard(bodyId, arrowId) {{
+  const body  = document.getElementById(bodyId);
+  const arrow = document.getElementById(arrowId);
+  const isNowCollapsed = body.classList.toggle('collapsed');
+  arrow.style.transform = isNowCollapsed ? 'rotate(-90deg)' : 'rotate(0deg)';
+}}
+
 const GAINERS    = {gainers_json};
 const LOSERS     = {losers_json};
 const RECS       = {recs_json};
@@ -279,14 +406,14 @@ const PORTFOLIO  = {portfolio_json};
 const PORT_MISS    = {missing_json};
 const PORT_SIGNALS = {signals_json};
 
-// ── Gainers table & chart ──
+// â”€â”€ Gainers table & chart â”€â”€
 const gainBody = document.getElementById('gainBody');
 GAINERS.forEach((r,i) => {{
   gainBody.innerHTML += `<tr>
     <td>${{r.Company}}</td>
-    <td>${{r.Prev_Close?.toFixed(2) ?? '-'}}</td>
+    <td class="hide-mobile">${{r.Prev_Close?.toFixed(2) ?? '-'}}</td>
     <td>${{r.Close?.toFixed(2) ?? '-'}}</td>
-    <td class="up">+${{r.Change?.toFixed(2) ?? '0'}}</td>
+    <td class="up hide-mobile">+${{r.Change?.toFixed(2) ?? '0'}}</td>
     <td class="up">+${{r.Pct_Change?.toFixed(2) ?? '0'}}%</td>
   </tr>`;
 }});
@@ -304,22 +431,22 @@ new Chart(document.getElementById('gainChart'), {{
   options:{{
     plugins:{{legend:{{display:false}}}},
     scales:{{
-      y:{{title:{{display:true,text:'% Change'}}}},
-      x:{{ticks:{{maxRotation:45,font:{{size:10}}}}}}
+      y:{{title:{{display:true,text:'% Change'}},ticks:{{font:{{size:10}}}}}},
+      x:{{ticks:{{maxRotation:45,font:{{size:9}}}}}}
     }},
     responsive:true,
     maintainAspectRatio:true,
   }}
 }});
 
-// ── Losers table & chart ──
+// â”€â”€ Losers table & chart â”€â”€
 const lossBody = document.getElementById('lossBody');
 LOSERS.forEach(r => {{
   lossBody.innerHTML += `<tr>
     <td>${{r.Company}}</td>
-    <td>${{r.Prev_Close?.toFixed(2) ?? '-'}}</td>
+    <td class="hide-mobile">${{r.Prev_Close?.toFixed(2) ?? '-'}}</td>
     <td>${{r.Close?.toFixed(2) ?? '-'}}</td>
-    <td class="dn">${{r.Change?.toFixed(2) ?? '0'}}</td>
+    <td class="dn hide-mobile">${{r.Change?.toFixed(2) ?? '0'}}</td>
     <td class="dn">${{r.Pct_Change?.toFixed(2) ?? '0'}}%</td>
   </tr>`;
 }});
@@ -337,81 +464,110 @@ new Chart(document.getElementById('lossChart'), {{
   options:{{
     plugins:{{legend:{{display:false}}}},
     scales:{{
-      y:{{title:{{display:true,text:'% Change'}}}},
-      x:{{ticks:{{maxRotation:45,font:{{size:10}}}}}}
+      y:{{title:{{display:true,text:'% Change'}},ticks:{{font:{{size:10}}}}}},
+      x:{{ticks:{{maxRotation:45,font:{{size:9}}}}}}
     }},
     responsive:true,
     maintainAspectRatio:true,
   }}
 }});
 
-// ── My Portfolio cards ──
+// â”€â”€ My Portfolio cards â”€â”€
 const portGrid = document.getElementById('portGrid');
 if (PORTFOLIO.length === 0 && PORT_MISS.length > 0) {{
   portGrid.innerHTML = "<p style='color:var(--muted);font-size:.85rem;'>No portfolio stocks found in today&apos;s data.</p>";
 }} else {{
   PORTFOLIO.forEach(r => {{
-    const pct  = r.Pct_Change ?? 0;
-    const sign = pct >= 0 ? '+' : '';
-    const cls  = pct > 0 ? 'up' : pct < 0 ? 'dn' : 'neu';
+    const pct       = r.Pct_Change ?? 0;
+    const sign      = pct >= 0 ? '+' : '';
+    const cls       = pct > 0 ? 'up' : pct < 0 ? 'dn' : 'neu';
     const borderCol = pct > 0 ? 'var(--green)' : pct < 0 ? 'var(--red)' : 'var(--muted)';
-    const sig  = PORT_SIGNALS[r.Company] || {{}};
-    const sigText = sig.signal || 'HOLD';
+    const sig       = PORT_SIGNALS[r.Company] || {{}};
+    const sigText   = sig.signal || 'HOLD';
     const sigReason = sig.reason || '';
-    const sigCls = sigText === 'SELL' ? 'sell'
-                 : sigText === 'CONSIDER SELLING' ? 'consider'
-                 : sigText === 'WATCH CLOSELY' ? 'watch'
-                 : sigText === 'KEEP' ? 'keep' : 'hold';
-    const sessions = sig.sessions ? sig.sessions + ' sessions' : 'today only';
-    const netChg   = sig.net_change_pct != null ? (sig.net_change_pct >= 0 ? '+' : '') + sig.net_change_pct.toFixed(2) + '%' : '\u2014';
+    const sigCls    = sigText === 'SELL' ? 'sell'
+                    : sigText === 'CONSIDER SELLING' ? 'consider'
+                    : sigText === 'WATCH CLOSELY' ? 'watch'
+                    : sigText === 'KEEP' ? 'keep' : 'hold';
+    const sessions  = sig.sessions ? sig.sessions + ' sessions' : 'today only';
+    const netChg    = sig.net_change_pct != null ? (sig.net_change_pct >= 0 ? '+' : '') + sig.net_change_pct.toFixed(2) + '%' : '\u2014';
+
+    // -- P&L block (only shown when qty and buy_price are set) --
+    const qty      = r._qty || 0;
+    const buyPrice = r._buy_price || 0;
+    let plHtml = '';
+    if (qty > 0 && buyPrice > 0 && r.Close) {{
+      const cost    = qty * buyPrice;
+      const curVal  = qty * r.Close;
+      const pl      = curVal - cost;
+      const plPct   = (pl / cost * 100);
+      const plCls   = pl >= 0 ? 'up' : 'dn';
+      const plSign  = pl >= 0 ? '+' : '';
+      const fmt2    = (n) => n.toLocaleString(undefined, {{minimumFractionDigits:2, maximumFractionDigits:2}});
+      plHtml = `
+        <div class="port-row" style="border-top:1px solid #f0f0f0;margin-top:6px;padding-top:6px;">
+          Shares: <b>${{qty.toLocaleString()}}</b>
+        </div>
+        <div class="port-row">Cost basis: <b>&#8358;${{fmt2(cost)}}</b></div>
+        <div class="port-row">Market value: <b>&#8358;${{fmt2(curVal)}}</b></div>
+        <div class="port-row ${{plCls}}">P&amp;L: <b>${{plSign}}&#8358;${{fmt2(Math.abs(pl))}} (${{plSign}}${{plPct.toFixed(1)}}%)</b></div>`;
+    }} else if (qty > 0) {{
+      plHtml = `<div class="port-row" style="border-top:1px solid #f0f0f0;margin-top:6px;padding-top:6px;">Shares held: <b>${{qty.toLocaleString()}}</b></div>`;
+    }}
+
     portGrid.innerHTML += `
       <div class="port-card" style="border-top-color:${{borderCol}}">
         <div class="port-sym">${{r.Company}}</div>
         <div class="port-price ${{cls}}">&#8358;${{r.Close?.toFixed(2) ?? '\u2014'}}</div>
         <div class="port-chg ${{cls}}">${{sign}}${{pct.toFixed(2)}}% today</div>
-        <div class="port-row">Prev Close: <b>&#8358;${{r.Prev_Close?.toFixed(2) ?? '\u2014'}}</b></div>
-        <div class="port-row">High / Low: <b>&#8358;${{r.High?.toFixed(2) ?? '\u2014'}} / &#8358;${{r.Low?.toFixed(2) ?? '\u2014'}}</b></div>
-        <div class="port-row">Vol: <b>${{r.Volume ? r.Volume.toLocaleString() : '\u2014'}}</b> &nbsp; Trades: <b>${{r.Trades ?? '\u2014'}}</b></div>
+        <div class="port-row">High/Low: <b>&#8358;${{r.High?.toFixed(2) ?? '\u2014'}} / &#8358;${{r.Low?.toFixed(2) ?? '\u2014'}}</b></div>
+        <div class="port-row">Vol: <b>${{r.Volume ? r.Volume.toLocaleString() : '\u2014'}}</b></div>
         <div class="port-row">Trend (${{sessions}}): <b>${{netChg}}</b></div>
+        ${{plHtml}}
         <div><span class="port-signal ${{sigCls}}">${{sigText}}</span></div>
         <div class="port-reason">${{sigReason}}</div>
       </div>`;
   }});
   PORT_MISS.forEach(name => {{
     portGrid.innerHTML += `
-      <div class="port-card" style="border-top-color:var(--muted);opacity:.55">
+      <div class="port-card" style="border-top-color:var(--muted);opacity:.5">
         <div class="port-sym">${{name}}</div>
-        <div style="font-size:.8rem;color:var(--muted);margin-top:10px;">Not found in today&apos;s data</div>
+        <div style="font-size:.75rem;color:var(--muted);margin-top:10px;">Not traded today</div>
       </div>`;
   }});
 }}
 
-// ── Recommendation cards ──
+// â”€â”€ Recommendation cards â”€â”€
 const recGrid = document.getElementById('recGrid');
 RECS.forEach(r => {{
   const signal   = r.Recommendation || 'WATCH';
   const isBuy    = signal.includes('BUY');
   const pct      = r.Pct_Change ?? 0;
   const mom      = r['momentum_%'] ?? pct;
-  const cons     = r.consistency != null ? (r.consistency*100).toFixed(0)+'%' : '—';
-  const score    = r.Score?.toFixed(1) ?? '—';
-  const vol      = r.Volume ? r.Volume.toLocaleString() : '—';
+  const cons     = r.consistency != null ? (r.consistency*100).toFixed(0)+'%' : '\u2014';
+  const score    = r.Score?.toFixed(1) ?? '\u2014';
+  const vol      = r.Volume ? r.Volume.toLocaleString() : '\u2014';
   const sign     = pct >= 0 ? '+' : '';
   const priceClass = pct >= 0 ? '' : 'dn';
   const watchClass = isBuy   ? '' : 'watch';
   const sigClass   = isBuy   ? '' : 'watch';
-
   recGrid.innerHTML += `
   <div class="rec-card ${{watchClass}}">
     <div class="rec-sym">${{r.Company}}</div>
-    <div class="rec-price ${{priceClass}}">₦${{r.Close?.toFixed(2) ?? '—'}}</div>
+    <div class="rec-price ${{priceClass}}">&#8358;${{r.Close?.toFixed(2) ?? '\u2014'}}</div>
     <div class="rec-pct ${{pct>=0?'up':'dn'}}">${{sign}}${{pct.toFixed(2)}}%</div>
     <div class="rec-row">Score: <b>${{score}}</b></div>
-    <div class="rec-row">Momentum: <b>${{mom>=0?'+':''}}${{typeof mom==='number'?mom.toFixed(1):'—'}}%</b></div>
-    <div class="rec-row">Consistency: <b>${{cons}}</b></div>
-    <div class="rec-row">Volume: <b>${{vol}}</b></div>
+    <div class="rec-row">Mom: <b>${{mom>=0?'+':''}}${{typeof mom==='number'?mom.toFixed(1):'\u2014'}}%</b></div>
+    <div class="rec-row">Vol: <b>${{vol}}</b></div>
     <div><span class="signal ${{sigClass}}">${{signal}}</span></div>
   </div>`;
+}});
+// Tap a KPI to show its tooltip on mobile (auto-dismisses after 3s)
+document.querySelectorAll(".kpi[data-tip]").forEach(el => {{
+  el.addEventListener("click", () => {{
+    el.classList.toggle("tip-open");
+    setTimeout(() => el.classList.remove("tip-open"), 3000);
+  }});
 }});
 </script>
 </body>
@@ -419,7 +575,7 @@ RECS.forEach(r => {{
 """
 
 
-# ── Generator ─────────────────────────────────────────────────────────────────
+# â”€â”€ Generator â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 def generate(df: pd.DataFrame, snapshots: list, top_n: int = 10, rec_n: int = 5) -> None:
     now_str = datetime.now().strftime("%d %b %Y, %H:%M WAT")
@@ -470,7 +626,7 @@ def generate(df: pd.DataFrame, snapshots: list, top_n: int = 10, rec_n: int = 5)
     logger.info(f"HTML written to {OUTPUT.resolve()}")
 
 
-# ── Entry point ────────────────────────────────────────────────────────────────
+# â”€â”€ Entry point â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 def main():
     parser = argparse.ArgumentParser()
@@ -485,7 +641,7 @@ def main():
         logger.error("No data available. Aborting.")
         sys.exit(1)
 
-    snapshots = load_snapshots(last_n=24)
+    snapshots = load_snapshots(last_n=168)  # 7 days x 24 hrs
     generate(df, snapshots, top_n=args.top, rec_n=args.rec)
     print(f"\nOK  docs/index.html generated -- {len(df)} stocks processed.")
     print("   Push to GitHub and enable Pages -> branch: main, folder: /docs\n")
