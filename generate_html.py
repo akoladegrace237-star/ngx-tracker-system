@@ -41,6 +41,10 @@ PORTFOLIO_CONFIG = {
     "UNIVINSURE":{"qty": 542000, "buy_price": 1.10,  "stop_loss_pct": 8 },
     "CUTIX":     {"qty": 185000, "buy_price": 2.60,  "stop_loss_pct": 10},
     "SOVRENINS": {"qty": 200000, "buy_price": 1.00,  "stop_loss_pct": 12},
+    "CUTIX":     {"qty": 451562, "buy_price": 5.00,  "stop_loss_pct": 10},
+    "AFRIPRUD":  {"qty": 152000, "buy_price": 9.90,  "stop_loss_pct": 10},
+    "OANDO":     {"qty": 16395, "buy_price": 13.30,  "stop_loss_pct": 12},
+    "MANSARD":   {"qty": 52000, "buy_price": 9.50,   "stop_loss_pct": 12},
 }
 
 PORTFOLIO_STOCKS = list(PORTFOLIO_CONFIG.keys())
@@ -847,6 +851,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
