@@ -38,8 +38,8 @@ OUTPUT = DOCS_DIR / "index.html"
 # stop_loss_pct = how many % below your buy price triggers a SELL alert
 PORTFOLIO_CONFIG = {
     "AFRIPRUD":  {"qty": 13200,  "buy_price": 15.00, "stop_loss_pct": 10},
-    "UNIVINSURE":{"qty": 542000, "buy_price": 1.10,  "stop_loss_pct": 8 },
-    "CUTIX":     {"qty": 185000, "buy_price": 2.60,  "stop_loss_pct": 10},
+    "UNIVINSURE":{"qty": 342000, "buy_price": 1.10,  "stop_loss_pct": 8 },
+    "NGXGROUP":     {"qty": 4115, "buy_price": 186.00,  "stop_loss_pct": 10},
     "SOVRENINS": {"qty": 200000, "buy_price": 1.00,  "stop_loss_pct": 12},
 }
 
@@ -847,6 +847,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
