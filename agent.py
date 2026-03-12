@@ -41,8 +41,8 @@ logging.basicConfig(
 logger = logging.getLogger("ngx_agent")
 
 # NGX trading hours: Mon–Fri, 08:00–17:00 WAT
-TRADING_START = 8   # hour (WAT = local time on your PC)
-TRADING_END   = 17  # exclusive
+TRADING_START = 10   # hour (WAT = local time on your PC)
+TRADING_END   = 14  # exclusive
 TRADING_DAYS  = {0, 1, 2, 3, 4}  # Mon=0 … Fri=4
 
 
@@ -60,7 +60,7 @@ def run_analysis() -> None:
         now = datetime.now()
         logger.info(
             f"Outside trading hours ({now.strftime('%A %H:%M')}) — skipping. "
-            "Market runs Mon–Fri 08:00–17:00 WAT."
+            "Market runs Mon–Fri 10:00–14:00 WAT."
         )
         return
 
@@ -142,3 +142,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
