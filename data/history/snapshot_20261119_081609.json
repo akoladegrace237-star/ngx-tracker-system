@@ -1,7 +1,7 @@
 [
   {
     "Company":"ABBEYBANK",
-    "Prev_Close":7.75,
+    "Prev_Close":6.25,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -10,13 +10,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"ABCTRANS",
-    "Prev_Close":4.75,
+    "Prev_Close":5.65,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -25,13 +25,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"ACADEMY",
-    "Prev_Close":5.55,
+    "Prev_Close":5.1,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -40,13 +40,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"ACCESSCORP",
-    "Prev_Close":30.8,
+    "Prev_Close":27.2,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -55,9 +55,9 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"AFRINSURE [MRF]",
@@ -70,13 +70,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"AFRIPRUD",
-    "Prev_Close":11.1,
+    "Prev_Close":12.0,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -85,9 +85,9 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"AFROMEDIA [MRF]",
@@ -100,13 +100,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"AIICO",
-    "Prev_Close":4.1,
+    "Prev_Close":3.76,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -115,13 +115,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"AIRTELAFRI",
-    "Prev_Close":6300.0,
+    "Prev_Close":6258.2,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -130,9 +130,9 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"ALEX [BMF]",
@@ -145,13 +145,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"ARADEL",
-    "Prev_Close":1539.9,
+    "Prev_Close":1166.4,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -160,13 +160,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"AUSTINLAZ [RST]",
-    "Prev_Close":2.6,
+    "Prev_Close":2.45,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -175,13 +175,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"AVACAP",
-    "Prev_Close":6.0,
+    "Prev_Close":7.7,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -190,9 +190,9 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"AVAIF",
@@ -205,9 +205,9 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"BAPLC",
@@ -220,13 +220,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"BERGER",
-    "Prev_Close":147.6,
+    "Prev_Close":147.1,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -235,13 +235,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"BETAGLAS",
-    "Prev_Close":506.6,
+    "Prev_Close":511.5,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -250,13 +250,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"BUACEMENT",
-    "Prev_Close":309.0,
+    "Prev_Close":298.0,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -265,9 +265,9 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"BUAFOODS",
@@ -280,13 +280,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"CADBURY",
-    "Prev_Close":64.9,
+    "Prev_Close":62.7,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -295,13 +295,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"CAP",
-    "Prev_Close":115.45,
+    "Prev_Close":110.0,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -310,13 +310,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"CAVERTON",
-    "Prev_Close":4.6,
+    "Prev_Close":4.2,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -325,13 +325,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"CHAMPION",
-    "Prev_Close":11.0,
+    "Prev_Close":11.85,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -340,13 +340,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"CHAMS",
-    "Prev_Close":3.88,
+    "Prev_Close":3.13,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -355,13 +355,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"CHELLARAM",
-    "Prev_Close":9.7,
+    "Prev_Close":10.65,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -370,13 +370,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"CILEASING",
-    "Prev_Close":5.35,
+    "Prev_Close":5.1,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -385,13 +385,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"CMFC [DWL]",
-    "Prev_Close":2.84,
+    "Prev_Close":3.52,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -400,9 +400,9 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"CNIF",
@@ -415,13 +415,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"CONHALLPLC",
-    "Prev_Close":6.5,
+    "Prev_Close":7.0,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -430,9 +430,9 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"CONOIL",
@@ -445,13 +445,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"CORNERST",
-    "Prev_Close":5.45,
+    "Prev_Close":4.15,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -460,13 +460,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"CUSTODIAN",
-    "Prev_Close":72.0,
+    "Prev_Close":62.0,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -475,13 +475,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"CUTIX",
-    "Prev_Close":2.45,
+    "Prev_Close":2.49,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -490,13 +490,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"CWG",
-    "Prev_Close":19.4,
+    "Prev_Close":18.7,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -505,13 +505,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"DAARCOMM",
-    "Prev_Close":1.69,
+    "Prev_Close":1.37,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -520,13 +520,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"DANGCEM",
-    "Prev_Close":1034.0,
+    "Prev_Close":1323.0,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -535,13 +535,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"DANGSUGAR",
-    "Prev_Close":71.0,
+    "Prev_Close":70.0,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -550,9 +550,9 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"EKOCORP [DIP]",
@@ -565,13 +565,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"ELLAHLAKES",
-    "Prev_Close":8.35,
+    "Prev_Close":7.2,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -580,13 +580,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"ENAMELWA",
-    "Prev_Close":40.7,
+    "Prev_Close":33.0,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -595,13 +595,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"ETERNA",
-    "Prev_Close":35.8,
+    "Prev_Close":36.0,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -610,13 +610,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"ETI",
-    "Prev_Close":74.0,
+    "Prev_Close":74.85,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -625,13 +625,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"ETRANZACT",
-    "Prev_Close":13.25,
+    "Prev_Close":15.55,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -640,9 +640,9 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"EUNISELL",
@@ -655,13 +655,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"FCMB",
-    "Prev_Close":11.7,
+    "Prev_Close":11.05,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -670,13 +670,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
-    "Company":"FIDELITYBK",
-    "Prev_Close":20.0,
+    "Company":"FIDELITYBK [MRF]",
+    "Prev_Close":23.0,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -685,13 +685,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"FIDSON",
-    "Prev_Close":79.0,
+    "Prev_Close":91.8,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -700,13 +700,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"FIRSTHOLDCO",
-    "Prev_Close":149.9,
+    "Prev_Close":110.0,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -715,13 +715,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
-    "Company":"FTGINSURE",
-    "Prev_Close":1.95,
+    "Company":"FTGINSURE [DWL]",
+    "Prev_Close":2.0,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -730,13 +730,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
-    "Company":"FTNCOCOA [RST]",
-    "Prev_Close":8.6,
+    "Company":"FTNCOCOA",
+    "Prev_Close":6.5,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -745,9 +745,9 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"GEREGU",
@@ -760,12 +760,12 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
-    "Company":"GOLDBREW",
+    "Company":"GOLDBREW [BMF]",
     "Prev_Close":7.1,
     "Opening_Price":0.0,
     "High":0.0,
@@ -775,13 +775,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"GTCO",
-    "Prev_Close":133.0,
+    "Prev_Close":116.0,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -790,13 +790,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"GUINEAINS",
-    "Prev_Close":0.78,
+    "Prev_Close":1.0,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -805,13 +805,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"GUINNESS",
-    "Prev_Close":384.8,
+    "Prev_Close":416.0,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -820,13 +820,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"HBMNG",
-    "Prev_Close":357.0,
+    "Prev_Close":343.0,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -835,13 +835,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"HMCALL",
-    "Prev_Close":4.0,
+    "Prev_Close":3.27,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -850,13 +850,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"HONYFLOUR",
-    "Prev_Close":17.0,
+    "Prev_Close":36.0,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -865,13 +865,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"IKEJAHOTEL",
-    "Prev_Close":42.55,
+    "Prev_Close":43.45,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -880,13 +880,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"IMG",
-    "Prev_Close":34.1,
+    "Prev_Close":28.0,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -895,9 +895,9 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"INFINITY [BLS]",
@@ -910,13 +910,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"INTBREW",
-    "Prev_Close":10.05,
+    "Prev_Close":10.0,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -925,13 +925,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"INTENEGINS",
-    "Prev_Close":2.91,
+    "Prev_Close":2.0,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -940,13 +940,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"JAIZBANK",
-    "Prev_Close":8.3,
+    "Prev_Close":7.0,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -955,13 +955,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"JAPAULGOLD",
-    "Prev_Close":2.8,
+    "Prev_Close":2.5,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -970,9 +970,9 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"JBERGER",
@@ -985,57 +985,12 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"JOHNHOLT",
-    "Prev_Close":9.1,
-    "Opening_Price":0.0,
-    "High":0.0,
-    "Low":0.0,
-    "Close":0.0,
-    "Change":0.0,
-    "Trades":0.0,
-    "Volume":0.0,
-    "Value":0.0,
-    "Trade_Date":"03 Sep 26",
-    "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
-  },
-  {
-    "Company":"JULI",
-    "Prev_Close":7.25,
-    "Opening_Price":0.0,
-    "High":0.0,
-    "Low":0.0,
-    "Close":0.0,
-    "Change":0.0,
-    "Trades":0.0,
-    "Volume":0.0,
-    "Value":0.0,
-    "Trade_Date":"03 Sep 26",
-    "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
-  },
-  {
-    "Company":"LASACO",
-    "Prev_Close":1.88,
-    "Opening_Price":0.0,
-    "High":0.0,
-    "Low":0.0,
-    "Close":0.0,
-    "Change":0.0,
-    "Trades":0.0,
-    "Volume":0.0,
-    "Value":0.0,
-    "Trade_Date":"03 Sep 26",
-    "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
-  },
-  {
-    "Company":"LEARNAFRCA",
     "Prev_Close":7.9,
     "Opening_Price":0.0,
     "High":0.0,
@@ -1045,13 +1000,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
-    "Company":"LEGENDINT",
-    "Prev_Close":4.1,
+    "Company":"JULI",
+    "Prev_Close":6.55,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -1060,13 +1015,58 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
+  },
+  {
+    "Company":"LASACO [BLS]",
+    "Prev_Close":1.75,
+    "Opening_Price":0.0,
+    "High":0.0,
+    "Low":0.0,
+    "Close":0.0,
+    "Change":0.0,
+    "Trades":0.0,
+    "Volume":0.0,
+    "Value":0.0,
+    "Trade_Date":"19 Nov 26",
+    "Pct_Change":0.0,
+    "Fetched_At":"2026-11-19 08:16:09"
+  },
+  {
+    "Company":"LEARNAFRCA",
+    "Prev_Close":8.5,
+    "Opening_Price":0.0,
+    "High":0.0,
+    "Low":0.0,
+    "Close":0.0,
+    "Change":0.0,
+    "Trades":0.0,
+    "Volume":0.0,
+    "Value":0.0,
+    "Trade_Date":"19 Nov 26",
+    "Pct_Change":0.0,
+    "Fetched_At":"2026-11-19 08:16:09"
+  },
+  {
+    "Company":"LEGENDINT [MRF]",
+    "Prev_Close":3.4,
+    "Opening_Price":0.0,
+    "High":0.0,
+    "Low":0.0,
+    "Close":0.0,
+    "Change":0.0,
+    "Trades":0.0,
+    "Volume":0.0,
+    "Value":0.0,
+    "Trade_Date":"19 Nov 26",
+    "Pct_Change":0.0,
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"LINKASSURE",
-    "Prev_Close":1.95,
+    "Prev_Close":1.56,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -1075,13 +1075,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"LIVESTOCK",
-    "Prev_Close":8.25,
+    "Prev_Close":14.0,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -1090,13 +1090,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"LIVINGTRUST",
-    "Prev_Close":3.25,
+    "Prev_Close":2.81,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -1105,13 +1105,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"MANSARD",
-    "Prev_Close":12.0,
+    "Prev_Close":14.05,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -1120,13 +1120,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"MAYBAKER",
-    "Prev_Close":40.5,
+    "Prev_Close":40.0,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -1135,13 +1135,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"MBENEFIT",
-    "Prev_Close":3.2,
+    "Prev_Close":2.88,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -1150,13 +1150,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"MCNICHOLS",
-    "Prev_Close":5.4,
+    "Prev_Close":4.95,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -1165,9 +1165,9 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"MECURE",
@@ -1180,9 +1180,9 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"MEYER",
@@ -1195,9 +1195,9 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"MOFIREIF",
@@ -1210,9 +1210,9 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"MORISON",
@@ -1225,13 +1225,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"MTNN",
-    "Prev_Close":807.0,
+    "Prev_Close":837.0,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -1240,13 +1240,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"MULTITREX",
-    "Prev_Close":0.36,
+    "Prev_Close":0.72,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -1255,13 +1255,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"MULTIVERSE",
-    "Prev_Close":21.3,
+    "Prev_Close":17.3,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -1270,13 +1270,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"NAHCO",
-    "Prev_Close":136.35,
+    "Prev_Close":145.0,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -1285,13 +1285,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"NASCON",
-    "Prev_Close":175.5,
+    "Prev_Close":167.0,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -1300,13 +1300,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"NB",
-    "Prev_Close":75.0,
+    "Prev_Close":70.0,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -1315,9 +1315,9 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"NCR",
@@ -1330,13 +1330,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"NEIMETH",
-    "Prev_Close":7.5,
+    "Prev_Close":7.1,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -1345,13 +1345,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"NEM",
-    "Prev_Close":34.45,
+    "Prev_Close":28.25,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -1360,13 +1360,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"NESTLE",
-    "Prev_Close":2995.0,
+    "Prev_Close":2650.0,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -1375,13 +1375,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"NGXGROUP",
-    "Prev_Close":137.5,
+    "Prev_Close":175.0,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -1390,13 +1390,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"NIDF",
-    "Prev_Close":147.7,
+    "Prev_Close":158.0,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -1405,9 +1405,9 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"NNFM",
@@ -1420,13 +1420,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"NPFMCRFBK",
-    "Prev_Close":4.1,
+    "Prev_Close":4.45,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -1435,9 +1435,9 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"NREIT",
@@ -1450,13 +1450,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"NSLTECH",
-    "Prev_Close":0.75,
+    "Prev_Close":0.63,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -1465,13 +1465,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"OANDO",
-    "Prev_Close":38.3,
+    "Prev_Close":36.0,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -1480,13 +1480,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"OKOMUOIL",
-    "Prev_Close":1418.0,
+    "Prev_Close":1137.1,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -1495,13 +1495,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"OMATEK",
-    "Prev_Close":1.75,
+    "Prev_Close":1.45,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -1510,9 +1510,9 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"PHARMDEKO",
@@ -1525,9 +1525,9 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"PREMPAINTS",
@@ -1540,13 +1540,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"PRESCO",
-    "Prev_Close":2045.3,
+    "Prev_Close":1656.8,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -1555,13 +1555,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"PRESTIGE [BLS]",
-    "Prev_Close":1.4,
+    "Prev_Close":1.32,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -1570,13 +1570,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"PZ",
-    "Prev_Close":83.0,
+    "Prev_Close":64.8,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -1585,13 +1585,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"REDSTAREX",
-    "Prev_Close":15.5,
+    "Prev_Close":11.65,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -1600,13 +1600,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"REGALINS",
-    "Prev_Close":0.84,
+    "Prev_Close":0.71,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -1615,9 +1615,9 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"RONCHESS",
@@ -1630,9 +1630,9 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"ROYALEX",
@@ -1645,13 +1645,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"RTBRISCOE",
-    "Prev_Close":11.0,
+    "Prev_Close":7.55,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -1660,9 +1660,9 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"SCOA",
@@ -1675,13 +1675,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"SEPLAT",
-    "Prev_Close":12320.6,
+    "Prev_Close":16241.9,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -1690,9 +1690,9 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"SFSREIT",
@@ -1705,9 +1705,9 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"SKYAVN",
@@ -1720,13 +1720,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"SOVRENINS",
-    "Prev_Close":2.26,
+    "Prev_Close":2.51,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -1735,28 +1735,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
-  },
-  {
-    "Company":"STACO",
-    "Prev_Close":0.48,
-    "Opening_Price":0.0,
-    "High":0.0,
-    "Low":0.0,
-    "Close":0.0,
-    "Change":0.0,
-    "Trades":0.0,
-    "Volume":0.0,
-    "Value":0.0,
-    "Trade_Date":"03 Sep 26",
-    "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"STANBIC",
-    "Prev_Close":153.3,
+    "Prev_Close":165.0,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -1765,13 +1750,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"STERLINGNG",
-    "Prev_Close":7.85,
+    "Prev_Close":75.0,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -1780,13 +1765,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"SUNUASSUR",
-    "Prev_Close":3.23,
+    "Prev_Close":2.77,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -1795,13 +1780,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"TANTALIZER",
-    "Prev_Close":4.1,
+    "Prev_Close":3.54,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -1810,13 +1795,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"THOMASWY",
-    "Prev_Close":2.6,
+    "Prev_Close":2.36,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -1825,13 +1810,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"TIP",
-    "Prev_Close":25.9,
+    "Prev_Close":25.5,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -1840,13 +1825,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"TOTAL",
-    "Prev_Close":576.0,
+    "Prev_Close":518.4,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -1855,13 +1840,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"TRANSCOHOT",
-    "Prev_Close":265.5,
+    "Prev_Close":290.5,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -1870,13 +1855,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"TRANSCORP",
-    "Prev_Close":37.0,
+    "Prev_Close":32.0,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -1885,13 +1870,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"TRANSEXPR",
-    "Prev_Close":3.04,
+    "Prev_Close":2.45,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -1900,13 +1885,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"TRANSPOWER",
-    "Prev_Close":219.6,
+    "Prev_Close":232.0,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -1915,13 +1900,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"TRIPPLEG",
-    "Prev_Close":2.86,
+    "Prev_Close":2.41,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -1930,13 +1915,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"UACN",
-    "Prev_Close":177.9,
+    "Prev_Close":175.0,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -1945,13 +1930,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
-    "Company":"UBA",
-    "Prev_Close":46.5,
+    "Company":"UBA [MRF]",
+    "Prev_Close":40.0,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -1960,13 +1945,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"UCAP",
-    "Prev_Close":17.9,
+    "Prev_Close":16.4,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -1975,12 +1960,12 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
-    "Company":"UHOMREIT",
+    "Company":"UHREIT",
     "Prev_Close":70.0,
     "Opening_Price":0.0,
     "High":0.0,
@@ -1990,13 +1975,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"UNILEVER",
-    "Prev_Close":110.0,
+    "Prev_Close":112.2,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -2005,9 +1990,9 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"UNIONDICON",
@@ -2020,9 +2005,9 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"UNITYBNK",
@@ -2035,9 +2020,9 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"UNIVINSURE",
@@ -2050,13 +2035,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"UPDC [BLS]",
-    "Prev_Close":3.55,
+    "Prev_Close":3.9,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -2065,13 +2050,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"UPDCREIT",
-    "Prev_Close":12.65,
+    "Prev_Close":19.3,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -2080,13 +2065,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"UPL",
-    "Prev_Close":5.5,
+    "Prev_Close":5.0,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -2095,13 +2080,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"VERITASKAP",
-    "Prev_Close":1.16,
+    "Prev_Close":1.13,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -2110,13 +2095,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"VFDGROUP",
-    "Prev_Close":11.4,
+    "Prev_Close":11.3,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -2125,13 +2110,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"VITAFOAM",
-    "Prev_Close":194.0,
+    "Prev_Close":140.2,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -2140,13 +2125,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"WAPIC",
-    "Prev_Close":2.39,
+    "Prev_Close":2.24,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -2155,13 +2140,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"WEMABANK",
-    "Prev_Close":29.5,
+    "Prev_Close":33.0,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -2170,13 +2155,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"ZENITHBANK",
-    "Prev_Close":127.1,
+    "Prev_Close":113.0,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -2185,13 +2170,13 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   },
   {
     "Company":"ZICHIS",
-    "Prev_Close":15.25,
+    "Prev_Close":16.0,
     "Opening_Price":0.0,
     "High":0.0,
     "Low":0.0,
@@ -2200,8 +2185,8 @@
     "Trades":0.0,
     "Volume":0.0,
     "Value":0.0,
-    "Trade_Date":"03 Sep 26",
+    "Trade_Date":"19 Nov 26",
     "Pct_Change":0.0,
-    "Fetched_At":"2026-09-03 08:25:58"
+    "Fetched_At":"2026-11-19 08:16:09"
   }
 ]
